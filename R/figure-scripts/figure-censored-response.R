@@ -79,7 +79,7 @@ plot_timeseries_combined <- wrap_plots(plot_timeseries, plot_differences, ncol =
 # save --------------------------------------------------------------------
 
 ggsave(
-  here("R/figures/figure-censored-response.png"),
+  here("figures/figure-censored-response.png"),
   plot_timeseries_combined,
   width = 3.33, height = 4,
   dev = "png", dpi = 600

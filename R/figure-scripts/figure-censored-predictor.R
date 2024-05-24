@@ -105,7 +105,7 @@ plot_regression <- biosolids_wide |>
 # save --------------------------------------------------------------------
 
 ggsave(
-  here("R/figures/figure-censored-predictor.png"),
+  here("figures/figure-censored-predictor.png"),
   plot_regression,
   width = 3.33, height = 3,
   dev = "png", dpi = 600

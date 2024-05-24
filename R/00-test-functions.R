@@ -1,6 +1,6 @@
 
 library("here")
-source(here("R/functions.R"))
+source(here("R/functions-ppca.R"))
 library("testthat")
 
 # tests -------------------------------------------------------------------

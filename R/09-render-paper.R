@@ -9,7 +9,7 @@ library("rmarkdown")
 
 # paper:
 
-path <- "R/Rmarkdown/paper.Rmd" # path to Rmd
+path <- "Rmarkdown/paper.Rmd" # path to Rmd
 path_temp <- str_replace(path,"(.+/)(.+)", "\\1_\\2") # path to temporary modified version
 path_docx <- str_replace(path, "\\.Rmd", "\\.docx") # path to Word doc
 path_temp_docx <- str_replace(path_temp, "\\.Rmd", "\\.docx") # path to temporary Word doc
@@ -33,4 +33,4 @@ system(paste("open", path_docx)) # open Word document
 
 # SI:
 
-# rmarkdown::render("R/Rmarkdown/paper-si.Rmd")
+# rmarkdown::render("Rmarkdown/paper-si.Rmd")

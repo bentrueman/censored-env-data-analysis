@@ -1,10 +1,14 @@
 
+# create models directory -------------------------------------------------
+
+if (!file.exists("models")) dir.create("models")
+
 # setup -------------------------------------------------------------------
 
 library("here")
 library("cmdstanr")
 source(here("R/01-prepare-data.R"))
-source(here("R/functions.R"))
+source(here("R/functions-ppca.R"))
 
 options(mc.cores = parallel::detectCores())
 

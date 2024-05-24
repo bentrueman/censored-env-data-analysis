@@ -101,7 +101,7 @@ plot_ppca_combined <- wrap_plots(plot_ppca, plot_loadings, ncol = 1, heights = c
 # save --------------------------------------------------------------------
 
 ggsave(
-  here("R/figures/figure-ppca.png"),
+  here("figures/figure-ppca.png"),
   plot_ppca_combined,
   width = 3.33, height = 5.5,
   dev = "png", dpi = 600

@@ -149,7 +149,7 @@ plot_simulation_output <- wrap_plots(panel_a, panel_b, ncol = 1, heights = c(1, 
 # save --------------------------------------------------------------------
 
 ggsave(
-  here("R/figures/figure-simulation.png"),
+  here("figures/figure-simulation.png"),
   plot_simulation_output,
   width = 3.33, height = 5,
   dev = "png", dpi = 600

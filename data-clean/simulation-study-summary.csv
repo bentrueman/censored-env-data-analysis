@@ -1,0 +1,7 @@
+model,param,percent_correct
+value_censoring,b_Intercept,96
+value_censoring,b_x,98
+value_censoring,sigma,97
+value_naive,b_Intercept,2
+value_naive,b_x,14.000000000000002
+value_naive,sigma,1

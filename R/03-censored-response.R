@@ -1,4 +1,8 @@
 
+# create models directory -------------------------------------------------
+
+if (!file.exists("models")) dir.create("models")
+
 # setup -------------------------------------------------------------------
 
 library("here")

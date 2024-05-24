@@ -169,7 +169,7 @@ plot_correlation <- wrap_plots(plot_correlation_matrix, plot_ecdf, ncol = 1, hei
 # save --------------------------------------------------------------------
 
 ggsave(
-  here("R/figures/figure-correlation-matrix.png"),
+  here("figures/figure-correlation-matrix.png"),
   plot_correlation,
   width = 3.33, height = 6.5,
   dev = "png", dpi = 600

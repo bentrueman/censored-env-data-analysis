@@ -34,16 +34,8 @@ ppca_compiled <- cmdstan_model(stan_file = write_stan_file(ppca_code))
 
 simulation_output <- replicate(n_iterations, {
   # simulate mean vector:
-  # means <- runif(n_variables, 0, 50)
   means <- rep(0, n_variables)
-  # see https://stats.stackexchange.com/questions/215497/how-to-create-an-arbitrary-covariance-matrix
-  # simulate sigma (method 1):
-  # A <- matrix(runif(n_variables ^ 2) * 2 - 1, ncol = n_variables)
-  # sigma <- t(A) %*% A
-  # simulate sigma (method 2):
-  # p <- qr.Q(qr(matrix(rnorm(n_variables ^ 2), n_variables)))
-  # sigma <- crossprod(p, p * (n_variables:1))
-  # simulate sigma (method 3):
+  # simulate sigma:
   rho <- trialr::rlkjcorr(1, n_variables)
   variances <- diag(runif(n_variables, 0, 50))
   sigma <- variances %*% rho %*% variances
@@ -59,12 +51,9 @@ simulation_output <- replicate(n_iterations, {
   # fit pca:
   pca_simulated <- prcomp(data)
   # fit ppca:
-  # ppca_simulated <- ppca_compiled$sample(data = ppca_data)
   ppca_simulated <- ppca_compiled$variational(data = ppca_data, algorithm = "meanfield")
-  # ppca_simulated <- ppca_compiled$variational(data = ppca_data, algorithm = "fullrank")
   # extract draws:
   ppca_draws <- ppca_simulated$draws("w") |>
-    # apply(2, \(x) median(abs(x))) |>
     apply(2, mean) |>
     matrix(nrow = n_variables, ncol = n_variables) |>
     # orthonormalize:

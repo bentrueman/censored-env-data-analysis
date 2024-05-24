@@ -50,3 +50,9 @@ rsconnect/
 
 # MacOS
 .DS_Store
+
+# large files
+models/
+
+# MS word
+paper.docx

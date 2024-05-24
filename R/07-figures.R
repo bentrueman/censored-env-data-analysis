@@ -51,4 +51,4 @@ writeLines(capture.output(devtools::session_info()), "session-info.txt")
 
 # write r packages to bibtex file -----------------------------------------
 
-knitr::write_bib(file = "R/Rmarkdown/references-packages.bib")
+knitr::write_bib(file = "Rmarkdown/references-packages.bib")

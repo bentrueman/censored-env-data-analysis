@@ -1,7 +1,8 @@
 
-# notes -------------------------------------------------------------------
+# create models directory -------------------------------------------------
 
-# uncomment file_refit = "always" to run on a new machine or to post publicly
+if (!file.exists("models")) dir.create("models")
+if (!file.exists("models/simulation")) dir.create("models/simulation")
 
 # setup -------------------------------------------------------------------
 
@@ -67,8 +68,7 @@ model_censoring <- brm(
   chains = 0,
   prior = priors,
   backend = "cmdstanr",
-  file = "models/simulation/simulation-censoring-compiled",
-  # file_refit = "always"
+  file = "models/simulation/simulation-censoring-compiled"
 )
 
 model_naive <- brm(
@@ -79,8 +79,7 @@ model_naive <- brm(
   chains = 0,
   prior = priors,
   backend = "cmdstanr",
-  file = "models/simulation/simulation-naive-compiled",
-  # file_refit = "always"
+  file = "models/simulation/simulation-naive-compiled"
 )
 
 # run simulation ----------------------------------------------------------
@@ -106,7 +105,7 @@ simulation <- tibble(
       model_naive,
       newdata = .x,
       cores = parallel::detectCores(),
-      file = paste0("models/simulation-naive", .y)
+      file = paste0("models/simulation/simulation-naive", .y)
     )),
     params_naive = map(model_naive, ~ as_draws_df(.x)),
     params_naive = map(params_naive, ~ suppressWarnings(select(.x, b_Intercept, b_x, sigma))),
