@@ -9,7 +9,7 @@ library("rmarkdown")
 
 # paper:
 
-path <- "Rmarkdown/paper.Rmd" # path to Rmd
+path <- "Rmarkdown/README.Rmd" # path to Rmd
 path_temp <- str_replace(path,"(.+/)(.+)", "\\1_\\2") # path to temporary modified version
 path_md <- str_replace(path, "\\.Rmd", "\\.md") # path to md doc
 path_temp_md <- str_replace(path_temp, "\\.Rmd", "\\.md") # path to temporary md doc

@@ -1,4 +1,4 @@
-# Abstract
+# A comprehensive approach to analyzing environmental data with non-detects
 
 Non-detects—measurements below a detection limit—are ubiquitous in
 environmental science and engineering. They are frequently replaced with
