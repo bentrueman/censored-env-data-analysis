@@ -278,12 +278,12 @@ simulation: the censored regression model recovered the true parameters
 well and the naive model was biased.</figcaption>
 </figure>
 
-The censored regression model recovered the true parameter values much
-more accurately than the naive model (Figure 1). That is, the censored
-model yielded 95% credible intervals on the intercept, slope, and
-residual standard deviation that included the true parameter values 96,
-98, and 97% of the time, respectively. The naive model yielded intervals
-that included the true values just 2, 14, and 1% of the time.
+<br> The censored regression model recovered the true parameter values
+much more accurately than the naive model (Figure 1). That is, the
+censored model yielded 95% credible intervals on the intercept, slope,
+and residual standard deviation that included the true parameter values
+96, 98, and 97% of the time, respectively. The naive model yielded
+intervals that included the true values just 2, 14, and 1% of the time.
 
 ## Accounting for non-detects in a more complex model
 
@@ -362,7 +362,7 @@ detection limit. A single value beyond the plot limits is
 annotated.</figcaption>
 </figure>
 
-Geometric mean titanium concentrations varied in a quasi-seasonal
+<br> Geometric mean titanium concentrations varied in a quasi-seasonal
 pattern (Figure 2), and samples collected at one facility, Site 3, had
 mean concentrations approximately 20–30 µg g<sup>-1</sup> higher than
 those representing the other two facilities. Observations exhibited mild
@@ -398,16 +398,16 @@ Coordinates outside the plotting limits are annotated in
 parentheses.</figcaption>
 </figure>
 
-Fortunately, there is a straightforward alternative: all the non-detects
-can be treated as missing values with an upper bound and represented by
-parameters in the model. Since Bayesian modeling results in a set of
-posterior draws—vectors of plausible parameter values—this is equivalent
-to multiple imputation of missing values with an upper—and optionally a
-lower—bound. But since it is done in one step, we get a joint
-distribution that quantifies the uncertainty and interrelationships
-among all the parameters, including the censored values.<sup>19</sup>
-This might be important, for instance, when there is serial dependence
-in the data.
+<br> Fortunately, there is a straightforward alternative: all the
+non-detects can be treated as missing values with an upper bound and
+represented by parameters in the model. Since Bayesian modeling results
+in a set of posterior draws—vectors of plausible parameter values—this
+is equivalent to multiple imputation of missing values with an upper—and
+optionally a lower—bound. But since it is done in one step, we get a
+joint distribution that quantifies the uncertainty and
+interrelationships among all the parameters, including the censored
+values.<sup>19</sup> This might be important, for instance, when there
+is serial dependence in the data.
 
 Another advantage is the size of the imputed dataset: since the model is
 fitted to the data just once, it is straightforward to generate several
@@ -508,7 +508,7 @@ correlation than the non-robust model fitted with Gaussian
 likelihoods.</figcaption>
 </figure>
 
-Arsenic, vanadium, and cadmium concentrations were most strongly
+<br> Arsenic, vanadium, and cadmium concentrations were most strongly
 correlated in biosolids (Figure 4). And overall, the robust
 model—incorporating Student t likelihoods—identified more correlation
 among the variables than the conventional, non-robust model fitted with
@@ -560,6 +560,7 @@ orthonormalized columns of the transformation matrix <span
 class="math inline"><em>W</em></span>.</figcaption>
 </figure>
 
+<br>  
 Differences in metals concentrations among the three sites are apparent
 in Figure 5a. In particular, Site 3 scored differently on the two
 principal components, resulting in substantial separation in the

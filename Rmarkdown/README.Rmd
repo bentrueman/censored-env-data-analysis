@@ -104,7 +104,7 @@ In equation $(1)$, $censored_i$ is a binary variable ($0 = observed$, $1 = left\
 knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-simulation.png")
 ```
 
-  
+<br>
 The censored regression model recovered the true parameter values much more accurately than the naive model (Figure 1). That is, the censored model yielded 95% credible intervals on the intercept, slope, and residual standard deviation that included the true parameter values `r with(filter(percent_correct, model == "value_censoring"), glue_collapse(percent_correct, sep = ", ", last = ", and "))`% of the time, respectively. The naive model yielded intervals that included the true values just `r with(filter(percent_correct, model == "value_naive"), glue_collapse(percent_correct, sep = ", ", last = ", and "))`% of the time. 
 
 ## Accounting for non-detects in a more complex model
@@ -153,7 +153,7 @@ where $Z$ and $X_{spline}$ are matrices representing the penalized and unpenaliz
 knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-censored-response.png")
 ```
 
-  
+<br>
 Geometric mean titanium concentrations varied in a quasi-seasonal pattern (Figure 2), and samples collected at one facility, Site 3, had mean concentrations approximately 20--30 µg g^-1^ higher than those representing the other two facilities. Observations exhibited mild serial correlation, which quantifies the dependence of each observation on the previous one, after accounting for trends and site-specific variation. The serial correlation parameter in the model, $\phi$, had a posterior median of `r round(draws_censored_response[, "50%"], 2)` with a 95% credible interval spanning `r glue_collapse(round(draws_censored_response[, c("2.5%", "97.5%")], 2), sep = "--")` In general, accounting for serial correlation improves the accuracy of predictions and helps avoid overfitting [@simpson_modelling_2018].
 
 ## A censored predictor
@@ -164,7 +164,7 @@ Left-censoring may also occur in the predictor variable. One potential applicati
 knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-censored-predictor.png")
 ```
 
-  
+<br>
 Fortunately, there is a straightforward alternative: all the non-detects can be treated as missing values with an upper bound and represented by parameters in the model. Since Bayesian modeling results in a set of posterior draws---vectors of plausible parameter values---this is equivalent to multiple imputation of missing values with an upper---and optionally a lower---bound. But since it is done in one step, we get a joint distribution that quantifies the uncertainty and interrelationships among all the parameters, including the censored values [@hopke_multiple_2001]. This might be important, for instance, when there is serial dependence in the data.
 
 Another advantage is the size of the imputed dataset: since the model is fitted to the data just once, it is straightforward to generate several thousand imputed values, even for complex models. This may not be practical if values are imputed before model fitting: the conventional imputation strategy entails fitting one model for each set of imputed values. Furthermore, it may be difficult to find a multiple imputation routine that meets all of the needs of a particular data analysis. 
@@ -221,7 +221,7 @@ where the $\mu_{1...D}$ are the column means of $y$, $\Sigma$ is the covariance 
 knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-correlation-matrix.png")
 ```
 
-  
+<br>
 Arsenic, vanadium, and cadmium concentrations were most strongly correlated in biosolids (Figure 4). And overall, the robust model---incorporating Student t likelihoods---identified more correlation among the variables than the conventional, non-robust model fitted with Gaussian likelihoods. This is due to the much smaller influence that extreme values have on the robust model.
 
 ### Probabilistic principal components analysis
@@ -249,7 +249,7 @@ where $z$ is a $k \times N$ matrix of latent (i.e., unobserved) variables with $
 knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-ppca.png")
 ```
 
-  
+<br>  
 Differences in metals concentrations among the three sites are apparent in Figure 5a. In particular, Site 3 scored differently on the two principal components, resulting in substantial separation in the two-component space from the data representing the other two sites. Differences in titanium concentrations among treatment facilities play a strong role here: the principal axes---that is, the orthonormalized columns of the transformation matrix $W$ (equation 6)---load titanium concentrations heavily. And titanium concentrations were high in biosolids from Site 3 relative to Sites 1 and 2 (Figure 2).
 
 # Conclusion
