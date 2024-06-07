@@ -29,6 +29,12 @@ file.rename(path_temp_md, path_md) # rename temporary md file
 
 unlink(path_temp)
 
+# fix inline latex:
+
+read_file(path_md) |>
+  str_replace("I\\*\\*n\\*\\*v\\*\\*G\\*\\*a\\*\\*m\\*\\*m\\*\\*a", "InvGamma") |>
+  write_file(path_md)
+
 # SI:
 
 # rmarkdown::render("Rmarkdown/paper-si.Rmd")

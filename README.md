@@ -545,7 +545,7 @@ where *z* is a *k* × *N* matrix of latent (i.e., unobserved) variables
 with *k* ≤ *D*, *W* is a *D* × *k* transformation matrix mapping from
 the latent space to the data space, *σ* is the standard deviation of the
 error (also a latent parameter), *I* is the identity matrix, and
-*I**n**v**G**a**m**m**a* is the inverse gamma distribution.<sup>13</sup>
+*InvGamma* is the inverse gamma distribution.<sup>13</sup>
 
 <figure>
 <img
@@ -560,10 +560,9 @@ orthonormalized columns of the transformation matrix <span
 class="math inline"><em>W</em></span>.</figcaption>
 </figure>
 
-  <br>  
-Differences in metals concentrations among the three sites are apparent
-in Figure 5a. In particular, Site 3 scored differently on the two
-principal components, resulting in substantial separation in the
+<br> Differences in metals concentrations among the three sites are
+apparent in Figure 5a. In particular, Site 3 scored differently on the
+two principal components, resulting in substantial separation in the
 two-component space from the data representing the other two sites.
 Differences in titanium concentrations among treatment facilities play a
 strong role here: the principal axes—that is, the orthonormalized

@@ -249,9 +249,7 @@ where $z$ is a $k \times N$ matrix of latent (i.e., unobserved) variables with $
 knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-ppca.png")
 ```
 
-\ 
-<br>  
-Differences in metals concentrations among the three sites are apparent in Figure 5a. In particular, Site 3 scored differently on the two principal components, resulting in substantial separation in the two-component space from the data representing the other two sites. Differences in titanium concentrations among treatment facilities play a strong role here: the principal axes---that is, the orthonormalized columns of the transformation matrix $W$ (equation 6)---load titanium concentrations heavily. And titanium concentrations were high in biosolids from Site 3 relative to Sites 1 and 2 (Figure 2).
+<br> Differences in metals concentrations among the three sites are apparent in Figure 5a. In particular, Site 3 scored differently on the two principal components, resulting in substantial separation in the two-component space from the data representing the other two sites. Differences in titanium concentrations among treatment facilities play a strong role here: the principal axes---that is, the orthonormalized columns of the transformation matrix $W$ (equation 6)---load titanium concentrations heavily. And titanium concentrations were high in biosolids from Site 3 relative to Sites 1 and 2 (Figure 2).
 
 # Conclusion
 
