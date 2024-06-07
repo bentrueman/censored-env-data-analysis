@@ -205,8 +205,8 @@ $$
 (5)~~
 \begin{align}
 \text{likelihood:} \\
-y \sim MultivariateNormal(\begin{bmatrix}\mu_1 \\ \ldots \\ \mu_D\end{bmatrix}, \Sigma) \\
-\Sigma = \begin{bmatrix} \sigma_1 & \ldots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \ldots & \sigma_D\end{bmatrix} R \begin{bmatrix} \sigma_1 & \ldots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \ldots & \sigma_D\end{bmatrix} \\
+y \sim MultivariateNormal(\begin{bmatrix}\mu_1 \\\ \ldots \\\ \mu_D\end{bmatrix}, \Sigma) \\
+\Sigma = \begin{bmatrix} \sigma_1 & \ldots & 0 \\\ \vdots & \ddots & \vdots \\\ 0 & \ldots & \sigma_D\end{bmatrix} R \begin{bmatrix} \sigma_1 & \ldots & 0 \\\ \vdots & \ddots & \vdots \\\ 0 & \ldots & \sigma_D\end{bmatrix} \\
 \\
 \text{priors:} \\
 \mu_j \sim T(\mu_\mu=0,\sigma_\mu=10,\nu_\mu=3), \text{ for } \textit{j} = 1,..,D \\

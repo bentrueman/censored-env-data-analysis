@@ -479,8 +479,8 @@ $$
 (5)~~
 \begin{align}
 \text{likelihood:} \\
-y \sim MultivariateNormal(\begin{bmatrix}\mu\_1 \\ \ldots \\ \mu\_D\end{bmatrix}, \Sigma) \\
-\Sigma = \begin{bmatrix} \sigma\_1 & \ldots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \ldots & \sigma\_D\end{bmatrix} R \begin{bmatrix} \sigma\_1 & \ldots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \ldots & \sigma\_D\end{bmatrix} \\
+y \sim MultivariateNormal(\begin{bmatrix}\mu\_1 \\\\\ldots \\\\\mu\_D\end{bmatrix}, \Sigma) \\
+\Sigma = \begin{bmatrix} \sigma\_1 & \ldots & 0 \\\\\vdots & \ddots & \vdots \\\\0 & \ldots & \sigma\_D\end{bmatrix} R \begin{bmatrix} \sigma\_1 & \ldots & 0 \\\\\vdots & \ddots & \vdots \\\\0 & \ldots & \sigma\_D\end{bmatrix} \\
 \\
 \text{priors:} \\
 \mu\_j \sim T(\mu\_\mu=0,\sigma\_\mu=10,\nu\_\mu=3), \text{ for } \textit{j} = 1,..,D \\
