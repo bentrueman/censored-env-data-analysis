@@ -264,16 +264,19 @@ value *x*).<sup>14,15</sup> The parameters *β*<sub>0</sub> and
 denotes the t distribution with degrees of freedom—which controls
 probability density in the tails—parameterized by *ν*.
 
-<img src="../figures/figure-simulation.png" alt="**Figure 1. (a)** One iteration of the linear regression simulation. The model that accounts for left-censoring via the cumulative distribution function recovered the true model parameters well, whereas the naive model that used substitution at one-half the detection limit was biased. **(b)** The same pattern was evident across the entire simulation: the censored regression model recovered the true parameters well and the naive model was biased." width="320" />
-<p class="caption">
-**Figure 1. (a)** One iteration of the linear regression simulation. The
-model that accounts for left-censoring via the cumulative distribution
-function recovered the true model parameters well, whereas the naive
-model that used substitution at one-half the detection limit was biased.
-**(b)** The same pattern was evident across the entire simulation: the
-censored regression model recovered the true parameters well and the
-naive model was biased.
-</p>
+<figure>
+<img
+src="https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-simulation.png"
+alt="Figure 1. (a) One iteration of the linear regression simulation. The model that accounts for left-censoring via the cumulative distribution function recovered the true model parameters well, whereas the naive model that used substitution at one-half the detection limit was biased. (b) The same pattern was evident across the entire simulation: the censored regression model recovered the true parameters well and the naive model was biased." />
+<figcaption aria-hidden="true"><strong>Figure 1. (a)</strong> One
+iteration of the linear regression simulation. The model that accounts
+for left-censoring via the cumulative distribution function recovered
+the true model parameters well, whereas the naive model that used
+substitution at one-half the detection limit was biased.
+<strong>(b)</strong> The same pattern was evident across the entire
+simulation: the censored regression model recovered the true parameters
+well and the naive model was biased.</figcaption>
+</figure>
 
 The censored regression model recovered the true parameter values much
 more accurately than the naive model (Figure 1). That is, the censored
