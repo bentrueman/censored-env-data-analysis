@@ -151,8 +151,7 @@ facilities.</caption>
 </tbody>
 </table>
 
-**Table 1.** A summary of element concentrations in biosolids samples
-collected at three wastewater treatment facilities.
+
 
 ## Data analysis
 
