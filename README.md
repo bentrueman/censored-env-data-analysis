@@ -219,7 +219,7 @@ density function. Here, the cumulative distribution function quantifies
 the probability that a data point is less than the detection limit—that
 is, the compatibility of a non-detect with the proposed model. The
 likelihood, then, becomes
-*P*(*x*|*θ*) = *F*(*x*<sub>*o**b**s**e**r**v**e**d*</sub>|*θ*)*G*(*x*<sub>*c**e**n**s**o**r**e**d*</sub>|*θ*),
+*P*(*x*|*θ*) = *F*(*x*<sub>*observed*</sub>|*θ*)*G*(*x*<sub>*censored*</sub>|*θ*),
 where *F* and *G* are the probability density and cumulative
 distribution functions, respectively.
 
@@ -317,10 +317,10 @@ r\_{t-s} = log(\[Ti\]\_{t-s}) - \alpha - f(t-s) \\
 \end{align}
 $$
 
-where, in addition to the symbols defined above, *H**a**l**f* − *T*
+where, in addition to the symbols defined above, *Half* − *T*
 represents the positive-values t distribution and *G**a**m**m**a* the
 gamma distribution, parameterized by mean *μ* and shape parameter *α*.
-The linear model *β*<sub>*s**i**t**e*</sub>*X*<sub>*s**i**t**e*</sub>
+The linear model *β*<sub>*site</sub>*X*<sub>*s**i**t**e*</sub>
 estimates a separate intercept for each site, where
 *X*<sub>*s**i**t**e*</sub> is the design matrix and
 *β*<sub>*s**i**t**e*</sub> the coefficients. The autocorrelation
@@ -344,7 +344,7 @@ b \sim N(0, \sigma\_b)~~\[penalized\] \\
 \end{align}
 $$
 
-where *Z* and *X*<sub>*s**p**l**i**n**e*</sub> are matrices representing
+where *Z* and *X*<sub>*spline*</sub> are matrices representing
 the penalized and unpenalized basis functions, while
 *β*<sub>*s**p**l**i**n**e*</sub> and *b* represent the corresponding
 spline coefficient vectors.<sup>18</sup>

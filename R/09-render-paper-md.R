@@ -33,6 +33,11 @@ unlink(path_temp)
 
 read_file(path_md) |>
   str_replace("I\\*\\*n\\*\\*v\\*\\*G\\*\\*a\\*\\*m\\*\\*m\\*\\*a", "InvGamma") |>
+  str_replace("s\\*\\*p\\*\\*l\\*\\*i\\*\\*n\\*\\*e", "spline") |>
+  str_replace("s\\*\\*i\\*\\*t\\*\\*e\\*", "site") |>
+  str_replace("H\\*\\*a\\*\\*l\\*\\*f", "Half") |>
+  str_replace("c\\*\\*e\\*\\*n\\*\\*s\\*\\*o\\*\\*r\\*\\*e\\*\\*d", "censored") |>
+  str_replace("o\\*\\*b\\*\\*s\\*\\*e\\*\\*r\\*\\*v\\*\\*e\\*\\*d", "observed") |>
   write_file(path_md)
 
 # SI:
