@@ -560,7 +560,7 @@ orthonormalized columns of the transformation matrix <span
 class="math inline"><em>W</em></span>.</figcaption>
 </figure>
 
-<br>  
+  <br>  
 Differences in metals concentrations among the three sites are apparent
 in Figure 5a. In particular, Site 3 scored differently on the two
 principal components, resulting in substantial separation in the
