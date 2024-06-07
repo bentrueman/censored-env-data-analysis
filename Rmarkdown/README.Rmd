@@ -49,7 +49,7 @@ biosolids |>
 
 ## Data analysis
 
-The data and code necessary to reproduce the main results from the paper are available at https://github.com/bentrueman/censored-env-data-analysis; several functions used to fit the models in Stan are available in a separate R package [@bgamcar1]. We used R version 4.3.3 throughout [@Rbase], along with a collection of contributed packages [@tidyverse; @brms; @cmdstanr; @assertr; @here; @patchwork; @PNWColors].
+The data and code necessary to reproduce the main results from this paper are available at https://github.com/bentrueman/censored-env-data-analysis; several functions used to fit the models in Stan are available in a separate R package [@bgamcar1]. We used R version 4.3.3 throughout [@Rbase], along with a collection of contributed packages [@tidyverse; @brms; @cmdstanr; @assertr; @here; @patchwork; @PNWColors].
 
 # Results and discussion
 

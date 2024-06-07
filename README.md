@@ -18,7 +18,7 @@ statistical methods with relevance to environmental science. We use a
 dataset comprising time series of Ag, As, Cd, Ce, Co, Sb, Ti, U, and V
 concentrations in municipal biosolids that includes many non-detects.
 The models can be reproduced and extended to new problems using the data
-and code that accompany this paper.
+and code that accompany this document.
 
 # Introduction
 
@@ -49,7 +49,7 @@ they can be very flexible. In particular, it is straightforward to
 account for non-detects in almost any model. Here, we provide examples
 of common statistical models in environmental science and engineering
 whose Bayesian versions can easily accommodate non-detects. They are
-reproducible via the code and data that accompany this paper.
+reproducible via the code and data that accompany this document.
 
 # Materials and methods
 
@@ -156,8 +156,8 @@ collected at three wastewater treatment facilities.
 
 ## Data analysis
 
-The data and code necessary to reproduce the main results from the paper
-are available at
+The data and code necessary to reproduce the main results from this
+paper are available at
 <https://github.com/bentrueman/censored-env-data-analysis>; several
 functions used to fit the models in Stan are available in a separate R
 package.<sup>4</sup> We used R version 4.3.3 throughout,<sup>5</sup>

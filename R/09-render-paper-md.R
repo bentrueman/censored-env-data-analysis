@@ -37,9 +37,10 @@ file.rename(path_temp_md, path_md) # rename temporary md file
 
 unlink(path_temp)
 
-# fix inline latex:
+# modifications to md doc:
 
 read_file(path_md) |>
+  # fix inline latex:
   str_replace_all("I\\*\\*n\\*\\*v\\*\\*G\\*\\*a\\*\\*m\\*\\*m\\*\\*a", "InvGamma") |>
   str_replace_all("s\\*\\*p\\*\\*l\\*\\*i\\*\\*n\\*\\*e", "spline") |>
   str_replace_all("s\\*\\*i\\*\\*t\\*\\*e", "site") |>
@@ -47,6 +48,8 @@ read_file(path_md) |>
   str_replace_all("l\\*\\*e\\*\\*f\\*\\*t", "left") |>
   str_replace_all("c\\*\\*e\\*\\*n\\*\\*s\\*\\*o\\*\\*r\\*\\*e\\*\\*d", "censored") |>
   str_replace_all("o\\*\\*b\\*\\*s\\*\\*e\\*\\*r\\*\\*v\\*\\*e\\*\\*d", "observed") |>
+  # change paper -> document:
+  str_replace_all("this paper", "this document") |>
   write_file(path_md)
 
 # SI:
