@@ -34,8 +34,9 @@ unlink(path_temp)
 read_file(path_md) |>
   str_replace_all("I\\*\\*n\\*\\*v\\*\\*G\\*\\*a\\*\\*m\\*\\*m\\*\\*a", "InvGamma") |>
   str_replace_all("s\\*\\*p\\*\\*l\\*\\*i\\*\\*n\\*\\*e", "spline") |>
-  str_replace_all("s\\*\\*i\\*\\*t\\*\\*e\\*", "site") |>
+  str_replace_all("s\\*\\*i\\*\\*t\\*\\*e", "site") |>
   str_replace_all("H\\*\\*a\\*\\*l\\*\\*f", "Half") |>
+  str_replace_all("l\\*\\*e\\*\\*f\\*\\*t", "left") |>
   str_replace_all("c\\*\\*e\\*\\*n\\*\\*s\\*\\*o\\*\\*r\\*\\*e\\*\\*d", "censored") |>
   str_replace_all("o\\*\\*b\\*\\*s\\*\\*e\\*\\*r\\*\\*v\\*\\*e\\*\\*d", "observed") |>
   write_file(path_md)

@@ -256,7 +256,7 @@ $$
 
 In equation (1), *censored*<sub>*i*</sub> is a binary
 variable (0 = *observed*,
-1 = *l**e**f**t*-*censored*), and *N*-*C**D**F* is the
+1 = *left*-*censored*), and *N*-*C**D**F* is the
 normal cumulative distribution function (i.e., *P*(*X* ≤ *x*), the
 probability that a random variable *X* is less than or equal to some
 value *x*).<sup>14,15</sup> The parameters *β*<sub>0</sub> and
@@ -320,10 +320,10 @@ $$
 where, in addition to the symbols defined above, *Half* − *T*
 represents the positive-values t distribution and *G**a**m**m**a* the
 gamma distribution, parameterized by mean *μ* and shape parameter *α*.
-The linear model *β*<sub>*site</sub>*X*<sub>*site</sub>
+The linear model *β*<sub>*site*</sub>*X*<sub>*site*</sub>
 estimates a separate intercept for each site, where
-*X*<sub>*site</sub> is the design matrix and
-*β*<sub>*site</sub> the coefficients. The autocorrelation
+*X*<sub>*site*</sub> is the design matrix and
+*β*<sub>*site*</sub> the coefficients. The autocorrelation
 coefficient, *ϕ*<sup>*s*</sup>, and the residual at time *t* − *s*,
 *r*<sub>*t* − *s*</sub>, define the dependence of each observation on
 the previous one, where *s* is the spacing between adjacent
