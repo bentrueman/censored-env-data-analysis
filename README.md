@@ -235,7 +235,7 @@ non-detects were replaced with one-half the detection limit.
 Specifically, the *i* simulated observations, *y*<sub>*i*</sub>, were
 modeled as follows. Except for the special handling of left-censored
 observations
-(*y*<sub>*i*</sub>|*c**e**n**s**o**r**e**d*<sub>*i*</sub> = 1), the
+(*y*<sub>*i*</sub>|*censored*<sub>*i*</sub> = 1), the
 naive model was identical.
 
 $$
@@ -254,9 +254,9 @@ y\_i | censored\_i=1 \sim N\text{-}CDF(\mu\_i, \sigma)~~\[left \text{-} censored
 \end{align}
 $$
 
-In equation (1), *c**e**n**s**o**r**e**d*<sub>*i*</sub> is a binary
-variable (0 = *o**b**s**e**r**v**e**d*,
-1 = *l**e**f**t*-*c**e**n**s**o**r**e**d*), and *N*-*C**D**F* is the
+In equation (1), *censored*<sub>*i*</sub> is a binary
+variable (0 = *observed*,
+1 = *l**e**f**t*-*censored*), and *N*-*C**D**F* is the
 normal cumulative distribution function (i.e., *P*(*X* ≤ *x*), the
 probability that a random variable *X* is less than or equal to some
 value *x*).<sup>14,15</sup> The parameters *β*<sub>0</sub> and
@@ -320,10 +320,10 @@ $$
 where, in addition to the symbols defined above, *Half* − *T*
 represents the positive-values t distribution and *G**a**m**m**a* the
 gamma distribution, parameterized by mean *μ* and shape parameter *α*.
-The linear model *β*<sub>*site</sub>*X*<sub>*s**i**t**e*</sub>
+The linear model *β*<sub>*site</sub>*X*<sub>*site</sub>
 estimates a separate intercept for each site, where
-*X*<sub>*s**i**t**e*</sub> is the design matrix and
-*β*<sub>*s**i**t**e*</sub> the coefficients. The autocorrelation
+*X*<sub>*site</sub> is the design matrix and
+*β*<sub>*site</sub> the coefficients. The autocorrelation
 coefficient, *ϕ*<sup>*s*</sup>, and the residual at time *t* − *s*,
 *r*<sub>*t* − *s*</sub>, define the dependence of each observation on
 the previous one, where *s* is the spacing between adjacent
@@ -346,7 +346,7 @@ $$
 
 where *Z* and *X*<sub>*spline*</sub> are matrices representing
 the penalized and unpenalized basis functions, while
-*β*<sub>*s**p**l**i**n**e*</sub> and *b* represent the corresponding
+*β*<sub>*spline*</sub> and *b* represent the corresponding
 spline coefficient vectors.<sup>18</sup>
 
 <figure>
