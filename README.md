@@ -318,7 +318,7 @@ r\_{t-s} = log(\[Ti\]\_{t-s}) - \alpha - f(t-s) \\
 $$
 
 where, in addition to the symbols defined above, *Half* − *T*
-represents the positive-values t distribution and *G**a**m**m**a* the
+represents the positive-valued t distribution and *G**a**m**m**a* the
 gamma distribution, parameterized by mean *μ* and shape parameter *α*.
 The linear model *β*<sub>*site*</sub>*X*<sub>*site*</sub>
 estimates a separate intercept for each site, where

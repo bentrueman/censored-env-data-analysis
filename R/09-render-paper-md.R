@@ -1,4 +1,12 @@
 
+# notes -------------------------------------------------------------------
+
+# changes from paper.Rmd -> README.Rmd
+
+# 1. changed figure paths to URLs
+# 2. added <br> after figure chunks
+# 3. changed \\ inside bmatrix to \\\
+
 # setup -------------------------------------------------------------------
 
 library("readr")

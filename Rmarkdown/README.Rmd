@@ -131,7 +131,7 @@ r_{t-s} = log([Ti]_{t-s}) - \alpha - f(t-s) \\
 \end{align}
 $$
 
-where, in addition to the symbols defined above, $Half-T$ represents the positive-values t distribution and $Gamma$ the gamma distribution, parameterized by mean $\mu$ and shape parameter $\alpha$. The linear model $\beta_{site} X_{site}$ estimates a separate intercept for each site, where $X_{site}$ is the design matrix and $\beta_{site}$ the coefficients. The autocorrelation coefficient, $\phi^s$, and the residual at time $t-s$, $r_{t-s}$, define the dependence of each observation on the previous one, where $s$ is the spacing between adjacent observations [@trueman_comparing_2022; @simpson_modelling_2018]. 
+where, in addition to the symbols defined above, $Half-T$ represents the positive-valued t distribution and $Gamma$ the gamma distribution, parameterized by mean $\mu$ and shape parameter $\alpha$. The linear model $\beta_{site} X_{site}$ estimates a separate intercept for each site, where $X_{site}$ is the design matrix and $\beta_{site}$ the coefficients. The autocorrelation coefficient, $\phi^s$, and the residual at time $t-s$, $r_{t-s}$, define the dependence of each observation on the previous one, where $s$ is the spacing between adjacent observations [@trueman_comparing_2022; @simpson_modelling_2018]. 
 
 The term $f(t)$ is a smooth spline function that captures nonlinear variation in the mean with time. It takes the following form:
 
