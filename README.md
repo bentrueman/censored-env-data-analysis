@@ -349,15 +349,18 @@ the penalized and unpenalized basis functions, while
 *β*<sub>*s**p**l**i**n**e*</sub> and *b* represent the corresponding
 spline coefficient vectors.<sup>18</sup>
 
-<img src="../figures/figure-censored-response.png" alt="**Figure 2.** Titanium concentration time series representing biosolids collected at three locations (light lines). Model predictions are superimposed in bold, the shaded regions represent a 95% credible interval on the posterior mean, and non-detects are shown as vertical dashed lines extending to the detection limit. A single value beyond the plot limits is annotated." width="320" />
-<p class="caption">
-**Figure 2.** Titanium concentration time series representing biosolids
-collected at three locations (light lines). Model predictions are
-superimposed in bold, the shaded regions represent a 95% credible
-interval on the posterior mean, and non-detects are shown as vertical
-dashed lines extending to the detection limit. A single value beyond the
-plot limits is annotated.
-</p>
+<figure>
+<img
+src="https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-censored-response.png"
+alt="Figure 2. Titanium concentration time series representing biosolids collected at three locations (light lines). Model predictions are superimposed in bold, the shaded regions represent a 95% credible interval on the posterior mean, and non-detects are shown as vertical dashed lines extending to the detection limit. A single value beyond the plot limits is annotated." />
+<figcaption aria-hidden="true"><strong>Figure 2.</strong> Titanium
+concentration time series representing biosolids collected at three
+locations (light lines). Model predictions are superimposed in bold, the
+shaded regions represent a 95% credible interval on the posterior mean,
+and non-detects are shown as vertical dashed lines extending to the
+detection limit. A single value beyond the plot limits is
+annotated.</figcaption>
+</figure>
 
 Geometric mean titanium concentrations varied in a quasi-seasonal
 pattern (Figure 2), and samples collected at one facility, Site 3, had
@@ -379,18 +382,21 @@ Left-censored predictors, though, are not amenable to substituting a
 cumulative distribution function in the likelihood—another strategy is
 required.
 
-<img src="../figures/figure-censored-predictor.png" alt="**Figure 3.** Cobalt concentrations as a function of cadmium concentrations in biosolids from three treatment facilities. Nondetect cadmium concentrations are represented as horizontal lines extending to the detection limit. A robust (Student t) linear model is superimposed in blue and the shaded region represents a 95% credible interval on the posterior mean. The equivalent non-robust model yields an extremely wide credible interval due to the unusually high cobalt concentration of 309 µg g^-1^. Coordinates outside the plotting limits are annotated in parentheses." width="320" />
-<p class="caption">
-**Figure 3.** Cobalt concentrations as a function of cadmium
-concentrations in biosolids from three treatment facilities. Nondetect
-cadmium concentrations are represented as horizontal lines extending to
-the detection limit. A robust (Student t) linear model is superimposed
-in blue and the shaded region represents a 95% credible interval on the
-posterior mean. The equivalent non-robust model yields an extremely wide
-credible interval due to the unusually high cobalt concentration of 309
-µg g<sup>-1</sup>. Coordinates outside the plotting limits are annotated
-in parentheses.
-</p>
+<figure>
+<img
+src="https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-censored-predictor.png"
+alt="Figure 3. Cobalt concentrations as a function of cadmium concentrations in biosolids from three treatment facilities. Nondetect cadmium concentrations are represented as horizontal lines extending to the detection limit. A robust (Student t) linear model is superimposed in blue and the shaded region represents a 95% credible interval on the posterior mean. The equivalent non-robust model yields an extremely wide credible interval due to the unusually high cobalt concentration of 309 µg g-1. Coordinates outside the plotting limits are annotated in parentheses." />
+<figcaption aria-hidden="true"><strong>Figure 3.</strong> Cobalt
+concentrations as a function of cadmium concentrations in biosolids from
+three treatment facilities. Nondetect cadmium concentrations are
+represented as horizontal lines extending to the detection limit. A
+robust (Student t) linear model is superimposed in blue and the shaded
+region represents a 95% credible interval on the posterior mean. The
+equivalent non-robust model yields an extremely wide credible interval
+due to the unusually high cobalt concentration of 309 µg g<sup>-1</sup>.
+Coordinates outside the plotting limits are annotated in
+parentheses.</figcaption>
+</figure>
 
 Fortunately, there is a straightforward alternative: all the non-detects
 can be treated as missing values with an upper bound and represented by
@@ -490,14 +496,17 @@ deviations of *y*, and *R* is the correlation matrix.
 skepticism of extreme correlation coefficients near -1 or
 1.<sup>14</sup>
 
-<img src="../figures/figure-correlation-matrix.png" alt="**Figure 4. (a)** Pairwise Bayesian correlations among the elemental concentrations in the dataset, estimated using Student t and Gaussian likelihoods. **(b)** The robust model---fitted with Student t likelihoods---identifies more correlation than the non-robust model fitted with Gaussian likelihoods." width="320" />
-<p class="caption">
-**Figure 4. (a)** Pairwise Bayesian correlations among the elemental
-concentrations in the dataset, estimated using Student t and Gaussian
-likelihoods. **(b)** The robust model—fitted with Student t
-likelihoods—identifies more correlation than the non-robust model fitted
-with Gaussian likelihoods.
-</p>
+<figure>
+<img
+src="https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-correlation-matrix.png"
+alt="Figure 4. (a) Pairwise Bayesian correlations among the elemental concentrations in the dataset, estimated using Student t and Gaussian likelihoods. (b) The robust model—fitted with Student t likelihoods—identifies more correlation than the non-robust model fitted with Gaussian likelihoods." />
+<figcaption aria-hidden="true"><strong>Figure 4. (a)</strong> Pairwise
+Bayesian correlations among the elemental concentrations in the dataset,
+estimated using Student t and Gaussian likelihoods. <strong>(b)</strong>
+The robust model—fitted with Student t likelihoods—identifies more
+correlation than the non-robust model fitted with Gaussian
+likelihoods.</figcaption>
+</figure>
 
 Arsenic, vanadium, and cadmium concentrations were most strongly
 correlated in biosolids (Figure 4). And overall, the robust
@@ -538,14 +547,18 @@ the latent space to the data space, *σ* is the standard deviation of the
 error (also a latent parameter), *I* is the identity matrix, and
 *I**n**v**G**a**m**m**a* is the inverse gamma distribution.<sup>13</sup>
 
-<img src="../figures/figure-ppca.png" alt="**Figure 5. (a)** The dataset projected onto the first two probabilistic principal components (*z* in equation (6)). Values appearing outside the extents of the plot are annotated in parentheses at the margins. **(b)** The first two principal axes; that is, the orthonormalized columns of the transformation matrix $W$." width="320" />
-<p class="caption">
-**Figure 5. (a)** The dataset projected onto the first two probabilistic
-principal components (*z* in equation (6)). Values appearing outside the
-extents of the plot are annotated in parentheses at the margins. **(b)**
-The first two principal axes; that is, the orthonormalized columns of
-the transformation matrix *W*.
-</p>
+<figure>
+<img
+src="https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-ppca.png"
+alt="Figure 5. (a) The dataset projected onto the first two probabilistic principal components (z in equation (6)). Values appearing outside the extents of the plot are annotated in parentheses at the margins. (b) The first two principal axes; that is, the orthonormalized columns of the transformation matrix W." />
+<figcaption aria-hidden="true"><strong>Figure 5. (a)</strong> The
+dataset projected onto the first two probabilistic principal components
+(<em>z</em> in equation (6)). Values appearing outside the extents of
+the plot are annotated in parentheses at the margins.
+<strong>(b)</strong> The first two principal axes; that is, the
+orthonormalized columns of the transformation matrix <span
+class="math inline"><em>W</em></span>.</figcaption>
+</figure>
 
 Differences in metals concentrations among the three sites are apparent
 in Figure 5a. In particular, Site 3 scored differently on the two
