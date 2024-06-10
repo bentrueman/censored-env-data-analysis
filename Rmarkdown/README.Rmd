@@ -21,9 +21,9 @@ Non-detects---measurements below a detection limit---are ubiquitous in environme
 
 # Introduction
 
-Non-detects---measurements recorded as less than a detection or reporting limit---are ubiquitous in environmental science and engineering. In the statistical literature, they are known as left-censored observations. A popular method of representing them in statistical routines is to replace them with one-half, or some other fraction, of the detection limit. But while common, this strategy can severely bias estimates based on the data. Worse still is omission---leaving out non-detects has led to serious and well-documented errors [@helsel_statistics_2012].
+Non-detects---measurements recorded as less than a detection or reporting limit---are ubiquitous in environmental science and engineering. In the statistical literature, they are known as left-censored observations. A popular method of representing them in statistical routines is to replace them with one-half, or some other fraction, of the detection limit. But while common, this strategy can severely bias estimates based on the data. Worse still is omission---leaving out non-detects has led to serious and well-documented errors.[@helsel_statistics_2012]
 
-For basic tasks like comparing two groups or estimating a mean, linear regression slope, or correlation coefficient, there are simple alternatives to substitution and omission. These include rank-based methods, maximum likelihood estimation, and re-purposed survival analysis routines [@helsel_statistics_2012]. But many environmental datasets require more complex models that account for hierarchy, sampling strategy, heterogeneity, and measurement error. For instance, measurements may be collected across multiple lakes with different characteristics or they may be recorded as time series (i.e., serially dependent data). The standard toolbox for censored data analysis does not always accommodate these features. 
+For basic tasks like comparing two groups or estimating a mean, linear regression slope, or correlation coefficient, there are simple alternatives to substitution and omission. These include rank-based methods, maximum likelihood estimation, and re-purposed survival analysis routines.[@helsel_statistics_2012] But many environmental datasets require more complex models that account for hierarchy, sampling strategy, heterogeneity, and measurement error. For instance, measurements may be collected across multiple lakes with different characteristics or they may be recorded as time series (i.e., serially dependent data). The standard toolbox for censored data analysis does not always accommodate these features. 
 
 Bayesian methods excel in this context---since the sampling techniques they rely on provide a near-universal approach to parameter estimation, they can be very flexible. In particular, it is straightforward to account for non-detects in almost any model. Here, we provide examples of common statistical models in environmental science and engineering whose Bayesian versions can easily accommodate non-detects. They are reproducible via the code and data that accompany this paper.
 
@@ -31,7 +31,7 @@ Bayesian methods excel in this context---since the sampling techniques they rely
 
 ## Data collection
 
-We fit models to a dataset comprising concentrations of Ag, As, Cd, Ce, Co, Sb, Ti, U, and V in municipal biosolids. Biosolids samples were collected from the clarifiers of three wastewater treatment facilities in 125 mL polypropylene bottles. Samples were autoclaved, desiccated by baking at 105&deg;C for approximately 60 hours, digested according to EPA Method 3050B [@us1996method], diluted serially, and quantified according to Standard Method 3125 [@sm_3125]. A summary of the data is available in Table 1.
+We fit models to a dataset comprising concentrations of Ag, As, Cd, Ce, Co, Sb, Ti, U, and V in municipal biosolids. Biosolids samples were collected from the clarifiers of three wastewater treatment facilities in 125 mL polypropylene bottles. Samples were autoclaved, desiccated by baking at 105&deg;C for approximately 60 hours, digested according to EPA Method 3050B,[@us1996method] diluted serially, and quantified according to Standard Method 3125.[@sm_3125] A summary of the data is available in Table 1.
 
 ```{r table-1}
 biosolids |> 
@@ -49,13 +49,13 @@ biosolids |>
 
 ## Data analysis
 
-The data and code necessary to reproduce the main results from this paper are available at https://github.com/bentrueman/censored-env-data-analysis; several functions used to fit the models in Stan are available in a separate R package [@bgamcar1]. We used R version 4.3.3 throughout [@Rbase], along with a collection of contributed packages [@tidyverse; @brms; @cmdstanr; @assertr; @here; @patchwork; @PNWColors].
+The data and code necessary to reproduce the main results from this paper are available at https://github.com/bentrueman/censored-env-data-analysis; several functions used to fit the models in Stan are available in a separate R package.[@bgamcar1] We used R version 4.3.3 throughout,[@Rbase] along with a collection of contributed packages.[@tidyverse; @brms; @cmdstanr; @assertr; @here; @patchwork; @PNWColors]
 
 # Results and discussion
 
 ## Bayesian modeling
 
-Bayesian inference entails fitting a probability model to data, then summarizing it as the joint distribution of the model parameters, $\theta$ [@gelman_bayesian_2014]. The model starts as a prior, $P(\theta)$, quantifying the plausibility of all possible parameter values. The prior reflects background knowledge and practical considerations [@mcelreath_statistical_2016]. 
+Bayesian inference entails fitting a probability model to data, then summarizing it as the joint distribution of the model parameters, $\theta$.[@gelman_bayesian_2014] The model starts as a prior, $P(\theta)$, quantifying the plausibility of all possible parameter values. The prior reflects background knowledge and practical considerations.[@mcelreath_statistical_2016] 
 
 The data, $x$, are used to update the prior via Bayes' theorem. It relates the posterior or updated joint parameter distribution, $P(\theta | x)$, with the prior and the likelihood. The likelihood, $P(x|\theta)$, quantifies the compatibility of the data with the proposed model.
 
@@ -70,7 +70,7 @@ In practice, model fitting follows these basic steps:
     (c) Quantify the plausibility of each data point given the assumed data distribution and the proposed parameter values (i.e., the likelihood).
     (d) Obtain the relative, or unnormalized, posterior probability as the product of the likelihood and the prior (i.e., Bayes' theorem).
 
-Iterating over steps 4 (a--d) may require searching a high-dimensional parameter space, which is often accomplished via the Hamiltonian Monte Carlo algorithm [@mcelreath_statistical_2016]. Fortunately, software packages make this straightforward: the R package *brms*[@brms], for instance, fits a huge variety of Bayesian regression models---including censored data models---with a standard and familiar syntax. Further customization is possible using Stan [@stan2024], a programming platform for Bayesian statistics written in C++.
+Iterating over steps 4 (a--d) may require searching a high-dimensional parameter space, which is often accomplished via the Hamiltonian Monte Carlo algorithm.[@mcelreath_statistical_2016] Fortunately, software packages make this straightforward: the R package *brms*[@brms], for instance, fits a huge variety of Bayesian regression models---including censored data models---with a standard and familiar syntax. Further customization is possible using Stan,[@stan2024] a programming platform for Bayesian statistics written in C++.
 
 ## Substitution biases parameter estimates
 
@@ -98,7 +98,7 @@ y_i | censored_i=1 \sim N\text{-}CDF(\mu_i, \sigma)~~[left \text{-} censored] \\
 \end{align}
 $$
 
-In equation $(1)$, $censored_i$ is a binary variable ($0 = observed$, $1 = left\text{-}censored$), and $N\text{-}CDF$ is the normal cumulative distribution function (i.e., $P(X\leq x)$, the probability that a random variable $X$ is less than or equal to some value $x$) [@stan2024; @mcelreath_statistical_2016]. The parameters $\beta_0$ and $\beta_1$ define the linear model for $\mu_i$, and $T$ denotes the t distribution with degrees of freedom---which controls probability density in the tails---parameterized by $\nu$. 
+In equation $(1)$, $censored_i$ is a binary variable ($0 = observed$, $1 = left\text{-}censored$), and $N\text{-}CDF$ is the normal cumulative distribution function (i.e., $P(X\leq x)$, the probability that a random variable $X$ is less than or equal to some value $x$).[@stan2024; @mcelreath_statistical_2016] The parameters $\beta_0$ and $\beta_1$ define the linear model for $\mu_i$, and $T$ denotes the t distribution with degrees of freedom---which controls probability density in the tails---parameterized by $\nu$. 
 
 ```{r figure-1, fig.cap="**Figure 1. (a)** One iteration of the linear regression simulation. The model that accounts for left-censoring via the cumulative distribution function recovered the true model parameters well, whereas the naive model that used substitution at one-half the detection limit was biased. **(b)** The same pattern was evident across the entire simulation: the censored regression model recovered the true parameters well and the naive model was biased."}
 knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-simulation.png")
@@ -109,7 +109,7 @@ The censored regression model recovered the true parameter values much more accu
 
 ## Accounting for non-detects in a more complex model
 
-The same strategy can be incorporated into more complex models: here, we use a dataset of metals concentrations in municipal biosolids to demonstrate fitting a smoothing spline. This type of model might be used to compare time series while accounting for variation over time in the mean. It was fitted using *bgamcar1* [@bgamcar1], an extension of *brms* that accommodates continuous-time autoregression---accounting for the dependence of one observation on the previous one in unequally spaced time series [@trueman_comparing_2022; @simpson_modelling_2018]. Titanium concentrations at three wastewater treatment facilities (Sites 1--3) were modeled as follows:
+The same strategy can be incorporated into more complex models: here, we use a dataset of metals concentrations in municipal biosolids to demonstrate fitting a smoothing spline. This type of model might be used to compare time series while accounting for variation over time in the mean. It was fitted using *bgamcar1*,[@bgamcar1] an extension of *brms* that accommodates continuous-time autoregression---accounting for the dependence of one observation on the previous one in unequally spaced time series.[@trueman_comparing_2022; @simpson_modelling_2018] Titanium concentrations at three wastewater treatment facilities (Sites 1--3) were modeled as follows:
 
 $$
 (2)~~
@@ -131,7 +131,7 @@ r_{t-s} = log([Ti]_{t-s}) - \alpha - f(t-s) \\
 \end{align}
 $$
 
-where, in addition to the symbols defined above, $Half \text{-} T$ represents the positive-valued t distribution and $Gamma$ the gamma distribution, parameterized by mean $\mu$ and shape parameter $\alpha$. The linear model $\beta_{site} X_{site}$ estimates a separate intercept for each site, where $X_{site}$ is the design matrix and $\beta_{site}$ the coefficients. The autocorrelation coefficient, $\phi^s$, and the residual at time $t-s$, $r_{t-s}$, define the dependence of each observation on the previous one, where $s$ is the spacing between adjacent observations [@trueman_comparing_2022; @simpson_modelling_2018]. 
+where, in addition to the symbols defined above, $Half \text{-} T$ represents the positive-valued t distribution and $Gamma$ the gamma distribution, parameterized by mean $\mu$ and shape parameter $\alpha$. The linear model $\beta_{site} X_{site}$ estimates a separate intercept for each site, where $X_{site}$ is the design matrix and $\beta_{site}$ the coefficients. The autocorrelation coefficient, $\phi^s$, and the residual at time $t-s$, $r_{t-s}$, define the dependence of each observation on the previous one, where $s$ is the spacing between adjacent observations.[@trueman_comparing_2022; @simpson_modelling_2018] 
 
 The term $f(t)$ is a smooth spline function that captures nonlinear variation in the mean with time. It takes the following form:
 
@@ -147,14 +147,14 @@ b \sim N(0, \sigma_b)~~[penalized] \\
 \end{align}
 $$
 
-where $Z$ and $X_{spline}$ are matrices representing the penalized and unpenalized basis functions, while $\beta_{spline}$ and $b$ represent the corresponding spline coefficient vectors [@Wood_2017].    
+where $Z$ and $X_{spline}$ are matrices representing the penalized and unpenalized basis functions, while $\beta_{spline}$ and $b$ represent the corresponding spline coefficient vectors.[@Wood_2017]    
 
 ```{r figure-2, fig.cap="**Figure 2.** Titanium concentration time series representing biosolids collected at three locations (light lines). Model predictions are superimposed in bold, the shaded regions represent a 95% credible interval on the posterior mean, and non-detects are shown as vertical dashed lines extending to the detection limit. A single value beyond the plot limits is annotated."}
 knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-censored-response.png")
 ```
 
 <br>
-Geometric mean titanium concentrations varied in a quasi-seasonal pattern (Figure 2), and samples collected at one facility, Site 3, had mean concentrations approximately 20--30 µg g^-1^ higher than those representing the other two facilities. Observations exhibited mild serial correlation, which quantifies the dependence of each observation on the previous one, after accounting for trends and site-specific variation. The serial correlation parameter in the model, $\phi$, had a posterior median of `r round(draws_censored_response[, "50%"], 2)` with a 95% credible interval spanning `r glue_collapse(round(draws_censored_response[, c("2.5%", "97.5%")], 2), sep = "--")`. In general, accounting for serial correlation improves the accuracy of predictions and helps avoid overfitting [@simpson_modelling_2018].
+Geometric mean titanium concentrations varied in a quasi-seasonal pattern (Figure 2), and samples collected at one facility, Site 3, had mean concentrations approximately 20--30 µg g^-1^ higher than those representing the other two facilities. Observations exhibited mild serial correlation, which quantifies the dependence of each observation on the previous one, after accounting for trends and site-specific variation. The serial correlation parameter in the model, $\phi$, had a posterior median of `r round(draws_censored_response[, "50%"], 2)` with a 95% credible interval spanning `r glue_collapse(round(draws_censored_response[, c("2.5%", "97.5%")], 2), sep = "--")`. In general, accounting for serial correlation improves the accuracy of predictions and helps avoid overfitting.[@simpson_modelling_2018]
 
 ## A censored predictor
 
@@ -165,7 +165,7 @@ knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysi
 ```
 
 <br>
-Fortunately, there is a straightforward alternative: all the non-detects can be treated as missing values with an upper bound and represented by parameters in the model. Since Bayesian modeling results in a set of posterior draws---vectors of plausible parameter values---this is equivalent to multiple imputation of missing values with an upper---and optionally a lower---bound. But since it is done in one step, we get a joint distribution that quantifies the uncertainty and interrelationships among all the parameters, including the censored values [@hopke_multiple_2001]. This might be important, for instance, when there is serial dependence in the data.
+Fortunately, there is a straightforward alternative: all the non-detects can be treated as missing values with an upper bound and represented by parameters in the model. Since Bayesian modeling results in a set of posterior draws---vectors of plausible parameter values---this is equivalent to multiple imputation of missing values with an upper---and optionally a lower---bound. But since it is done in one step, we get a joint distribution that quantifies the uncertainty and interrelationships among all the parameters, including the censored values.[@hopke_multiple_2001] This might be important, for instance, when there is serial dependence in the data.
 
 Another advantage is the size of the imputed dataset: since the model is fitted to the data just once, it is straightforward to generate several thousand imputed values, even for complex models. This may not be practical if values are imputed before model fitting: the conventional imputation strategy entails fitting one model for each set of imputed values. Furthermore, it may be difficult to find a multiple imputation routine that meets all of the needs of a particular data analysis. 
 
@@ -189,7 +189,7 @@ $$
 \end{align}
 $$
 
-When the model was fitted with a Gaussian likelihood instead, the extreme cobalt concentration of 309 µg g^-1^ yielded a posterior mean with an extremely wide credible interval (Figure 3). The robust model, fitted with a Student t likelihood, yielded a much narrower credible interval and a posterior mean that was much less heavily influenced by the extreme value. A disadvantage of both models is that simulating from them may generate negative concentrations, even though the posterior mean remains positive over its range. This could be solved by modeling log-transformed Co concentrations instead, resulting in a slightly different interpretation: the model would then predict geometric mean concentrations on the scale of measurement [@helsel_statistical].
+When the model was fitted with a Gaussian likelihood instead, the extreme cobalt concentration of 309 µg g^-1^ yielded a posterior mean with an extremely wide credible interval (Figure 3). The robust model, fitted with a Student t likelihood, yielded a much narrower credible interval and a posterior mean that was much less heavily influenced by the extreme value. A disadvantage of both models is that simulating from them may generate negative concentrations, even though the posterior mean remains positive over its range. This could be solved by modeling log-transformed Co concentrations instead, resulting in a slightly different interpretation: the model would then predict geometric mean concentrations on the scale of measurement.[@helsel_statistical]
 
 ## Multivariate models
 
@@ -215,7 +215,7 @@ R \sim LKJcorr(2)
 \end{align}
 $$
 
-where the $\mu_{1...D}$ are the column means of $y$, $\Sigma$ is the covariance matrix, the $\sigma_{1...D}$ are the column standard deviations of $y$, and $R$ is the correlation matrix. $LKJcorr(2)$ is a regularizing prior that encodes mild skepticism of extreme correlation coefficients near -1 or 1 [@mcelreath_statistical_2016].
+where the $\mu_{1...D}$ are the column means of $y$, $\Sigma$ is the covariance matrix, the $\sigma_{1...D}$ are the column standard deviations of $y$, and $R$ is the correlation matrix. $LKJcorr(2)$ is a regularizing prior that encodes mild skepticism of extreme correlation coefficients near -1 or 1.[@mcelreath_statistical_2016]
 
 ```{r figure-4, fig.cap="**Figure 4. (a)** Pairwise Bayesian correlations among the elemental concentrations in the dataset, estimated using Student t and Gaussian likelihoods. **(b)** The robust model---fitted with Student t likelihoods---identifies more correlation than the non-robust model fitted with Gaussian likelihoods."}
 knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-correlation-matrix.png")
@@ -226,7 +226,7 @@ Arsenic, vanadium, and cadmium concentrations were most strongly correlated in b
 
 ### Probabilistic principal components analysis
 
-Principal component analysis is a method for summarizing a multivariate dataset using a subset of derived variables that capture the majority of the data's variance [@hastie_elements_2009]. Here we implement probabilistic principal component analysis, a Bayesian generalization of the classical approach [@bishop_pattern_2006]. Our model is modified from the approach described in a recent paper [@kucukelbir_2017] to accommodate left-censoring of the data and is written in Stan[@stan2024; @cmdstanr]. Given $y$, a $D \times N$ matrix containing $N$ concentrations of $D$ elements,
+Principal component analysis is a method for summarizing a multivariate dataset using a subset of derived variables that capture the majority of the data's variance.[@hastie_elements_2009] Here we implement probabilistic principal component analysis, a Bayesian generalization of the classical approach.[@bishop_pattern_2006] Our model is modified from the approach described in a recent paper[@kucukelbir_2017] to accommodate left-censoring of the data and is written in Stan[@stan2024; @cmdstanr]. Given $y$, a $D \times N$ matrix containing $N$ concentrations of $D$ elements,
 
 $$
 (6)~~
@@ -243,7 +243,7 @@ W \sim N(0, \sigma \alpha) \\
 \end{align}
 $$
 
-where $z$ is a $k \times N$ matrix of latent (i.e., unobserved) variables with $k \leq D$, $W$ is a $D \times k$ transformation matrix mapping from the latent space to the data space, $\sigma$ is the standard deviation of the error (also a latent parameter), $I$ is the identity matrix, and $InvGamma$ is the inverse gamma distribution [@gelman_bayesian_2014].
+where $z$ is a $k \times N$ matrix of latent (i.e., unobserved) variables with $k \leq D$, $W$ is a $D \times k$ transformation matrix mapping from the latent space to the data space, $\sigma$ is the standard deviation of the error (also a latent parameter), $I$ is the identity matrix, and $InvGamma$ is the inverse gamma distribution.[@gelman_bayesian_2014]
 
 ```{r figure-5, fig.cap="**Figure 5. (a)** The dataset projected onto the first two probabilistic principal components (*z* in equation (6)). Values appearing outside the extents of the plot are annotated in parentheses at the margins. **(b)** The first two principal axes; that is, the orthonormalized columns of the transformation matrix $W$."}
 knitr::include_graphics("https://github.com/bentrueman/censored-env-data-analysis/blob/main/figures/figure-ppca.png")

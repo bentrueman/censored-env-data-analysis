@@ -26,21 +26,21 @@ model_list <- list(
   c(simulation$model_naive)
 
 sampler_params <- model_list |>
-  map_dfr(
+  map(
     # warmup draws should all be excluded b/c they aren't saved in the CSV files
     ~ get_sampler_params(.x$fit, inc_warmup = FALSE) |>
       map(as_tibble) |>
       bind_rows(.id = ".chain") |>
-      mutate(max_treedepth = .x$fit@stan_args[[4]]$max_depth),
-    .id = "model"
-  )
+      mutate(max_treedepth = .x$fit@stan_args[[4]]$max_depth)
+  ) |>
+  list_rbind(names_to = "model")
 
 draw_summary <- model_list |>
-  map_dfr(
+  map(
     ~ as_draws(.x)  |>
-      posterior::summarise_draws(),
-    .id = "model"
-  )
+      posterior::summarise_draws()
+  ) |>
+  list_rbind(names_to = "model")
 
 test_that("max_treedepth never exceeded", {
   exceedances <- sampler_params |>

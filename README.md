@@ -368,7 +368,7 @@ serial correlation, which quantifies the dependence of each observation
 on the previous one, after accounting for trends and site-specific
 variation. The serial correlation parameter in the model, *ϕ*, had a
 posterior median of 0.11 with a 95% credible interval spanning
-0.04–0.25. In general, accounting for serial correlation improves the
+0.03–0.26. In general, accounting for serial correlation improves the
 accuracy of predictions and helps avoid overfitting.<sup>17</sup>
 
 ## A censored predictor

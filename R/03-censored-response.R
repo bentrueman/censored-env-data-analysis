@@ -45,6 +45,8 @@ stanseed <- 215678
 
 priors <- c(
   prior(student_t(3, 0, 2.5), b),
+  prior(normal(0, 1), b, coef = sitesite2),
+  prior(normal(0, 1), b, coef = sitesite3),
   prior(student_t(3, 0, 2.5), Intercept),
   prior(normal(.5, .5), ar, lb = 0, ub = 1)
 )
@@ -60,5 +62,6 @@ model_censored_response <- fit_stan_model(
   ),
   bdata = gam_in,
   bpriors = priors,
-  backend = "cmdstanr"
+  backend = "cmdstanr",
+  iter_sampling = 2000
 )
