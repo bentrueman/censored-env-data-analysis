@@ -49,7 +49,7 @@ read_file(path_md) |>
   str_replace_all("c\\*\\*e\\*\\*n\\*\\*s\\*\\*o\\*\\*r\\*\\*e\\*\\*d", "censored") |>
   str_replace_all("o\\*\\*b\\*\\*s\\*\\*e\\*\\*r\\*\\*v\\*\\*e\\*\\*d", "observed") |>
   # change paper -> document:
-  str_replace_all("this paper", "this document") |>
+  str_replace_all("this\\s+paper", "this document") |>
   # remove extra table captions:
   str_remove("\\*\\*Table \\d\\.\\*\\*[^\\.]+\\.") |>
   write_file(path_md)

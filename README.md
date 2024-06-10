@@ -155,8 +155,7 @@ facilities.</caption>
 
 ## Data analysis
 
-The data and code necessary to reproduce the main results from this
-paper are available at
+The data and code necessary to reproduce the main results from this document are available at
 <https://github.com/bentrueman/censored-env-data-analysis>; several
 functions used to fit the models in Stan are available in a separate R
 package.<sup>4</sup> We used R version 4.3.3 throughout,<sup>5</sup>
@@ -316,7 +315,7 @@ r\_{t-s} = log(\[Ti\]\_{t-s}) - \alpha - f(t-s) \\
 \end{align}
 $$
 
-where, in addition to the symbols defined above, *Half* − *T*
+where, in addition to the symbols defined above, *Half*-*T*
 represents the positive-valued t distribution and *G**a**m**m**a* the
 gamma distribution, parameterized by mean *μ* and shape parameter *α*.
 The linear model *β*<sub>*site*</sub>*X*<sub>*site*</sub>
@@ -368,9 +367,9 @@ those representing the other two facilities. Observations exhibited mild
 serial correlation, which quantifies the dependence of each observation
 on the previous one, after accounting for trends and site-specific
 variation. The serial correlation parameter in the model, *ϕ*, had a
-posterior median of 0.11 with a 95% credible interval spanning 0.04–0.25
-In general, accounting for serial correlation improves the accuracy of
-predictions and helps avoid overfitting.<sup>17</sup>
+posterior median of 0.11 with a 95% credible interval spanning
+0.04–0.25. In general, accounting for serial correlation improves the
+accuracy of predictions and helps avoid overfitting.<sup>17</sup>
 
 ## A censored predictor
 
@@ -448,15 +447,15 @@ narrower credible interval and a posterior mean that was much less
 heavily influenced by the extreme value. A disadvantage of both models
 is that simulating from them may generate negative concentrations, even
 though the posterior mean remains positive over its range. This could be
-solved by modeling log-transformed Co concentrations instead, but the
-model would then predict geometric mean concentrations on the scale of
-measurement.<sup>20</sup>
+solved by modeling log-transformed Co concentrations instead, resulting
+in a slightly different interpretation: the model would then predict
+geometric mean concentrations on the scale of measurement.<sup>20</sup>
 
 ## Multivariate models
 
 In a multivariate context, the one-step multiple imputation strategy is
 often simpler to apply, since multivariate cumulative distribution
-functions can be difficult to work with. Two multivariate models with
+functions can be difficult to implement. Two multivariate models with
 applications in environmental science are the intercept-only model, used
 to estimate a correlation matrix, and principal component analysis.
 
@@ -576,9 +575,9 @@ limit—biases estimates of means, regression slopes, and correlation
 coefficients. Simple alternatives exist, but they are limited and not
 always applicable to complex environmental datasets that exhibit
 hierarchy, complex dependence structures, and heterogeneity. Bayesian
-methods have the flexibility to model all of these complexities, and
-they can easily accommodate left-censoring by either modifying the
-likelihood or one-step multiple imputation as a part of model fitting.
+methods have the flexibility to model all of these features, and they
+can easily accommodate left-censoring by either modifying the likelihood
+or one-step multiple imputation as a part of model fitting.
 
 # Acknowledgements
 
