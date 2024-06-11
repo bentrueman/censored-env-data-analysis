@@ -30,7 +30,3 @@ file.rename(path_temp_docx, path_docx) # rename temporary Word file
 unlink(path_temp)
 
 system(paste("open", path_docx)) # open Word document
-
-# SI:
-
-# rmarkdown::render("Rmarkdown/paper-si.Rmd")

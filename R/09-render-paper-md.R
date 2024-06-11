@@ -53,7 +53,3 @@ read_file(path_md) |>
   # remove extra table captions:
   str_remove("\\*\\*Table \\d\\.\\*\\*[^\\.]+\\.") |>
   write_file(path_md)
-
-# SI:
-
-# rmarkdown::render("Rmarkdown/paper-si.Rmd")
