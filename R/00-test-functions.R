@@ -1,4 +1,11 @@
 
+# notes -------------------------------------------------------------------
+
+# this script contains a few tests for the functions used to build the PPCA stan program and
+# input
+
+# setup -------------------------------------------------------------------
+
 library("here")
 source(here("R/functions-ppca.R"))
 library("testthat")

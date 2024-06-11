@@ -5,7 +5,7 @@
 
 # 1. changed figure paths to URLs
 # 2. added <br> after figure chunks
-# 3. changed \\ inside bmatrix to \\\
+# 3. latex: changed \\ inside bmatrix to \\\
 
 # setup -------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ file.rename(path_temp_md, path_md) # rename temporary md file
 
 unlink(path_temp)
 
-# modifications to md doc:
+# modifications to rendered md doc:
 
 read_file(path_md) |>
   # fix inline latex:

@@ -1,4 +1,8 @@
 
+# notes -------------------------------------------------------------------
+
+# this script fits a GAM with CAR(1) errors (see references in the text)
+
 # create models directory -------------------------------------------------
 
 if (!file.exists("models")) dir.create("models")

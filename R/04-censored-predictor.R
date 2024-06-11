@@ -1,4 +1,8 @@
 
+# notes -------------------------------------------------------------------
+
+# this script fits a linear regression model with a partially left-censored predictor
+
 # create models directory -------------------------------------------------
 
 if (!file.exists("models")) dir.create("models")

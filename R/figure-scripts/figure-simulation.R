@@ -3,8 +3,6 @@
 
 # setup -------------------------------------------------------------------
 
-# inputs ------------------------------------------------------------------
-
 source(here("R/06-simulation.R"))
 library("readr")
 
@@ -22,8 +20,6 @@ predictions_naive <- simulation$data[[this_simulation]] |>
 
 panel_a <- simulation$data[[this_simulation]] |>
   ggplot(aes(x, y_observed)) +
-  # scale_fill_manual(values = colour_palette[c(1, 3, 5)]) +
-  # scale_color_manual(values = colour_palette[c(1, 3, 5)]) +
   scale_fill_manual(values = colour_palette[c(1, 4, 7)]) +
   scale_color_manual(values = colour_palette[c(1, 4, 7)]) +
   theme(plot.margin = margin(b = 0)) +
@@ -97,29 +93,6 @@ panel_b_in <- simulation |>
   arrange(model, param, .median) |>
   mutate(simulation_reordered = rep(seq(n_simulations), 6))
 
-# panel_b <- panel_b_in |>
-#   nest_by(model) |>
-#   with(data) |>
-#   map(
-#     \(x) x |>
-#       ggplot(aes(simulation_reordered, .median, col = correct)) +
-#       facet_wrap(
-#         vars(param), scales = "free",
-#         labeller = as_labeller(c(
-#           "b_Intercept" = "&beta;<sub>0</sub>", "b_x" = "&beta;<sub>1</sub>", "sigma" = "&sigma;"
-#         ))
-#       ) +
-#       scale_color_manual(values = c("grey", colour_palette[2])) +
-#       theme(strip.text = element_markdown()) +
-#       geom_errorbar(aes(ymin = .lower, ymax = .upper), width = 0, position = position_dodge(width = 1)) +
-#       geom_point(position = position_dodge(width = 1)) +
-#       geom_hline(data = true_values, aes(yintercept = value), linetype = 3) +
-#       guides(col = "none") +
-#       labs(x = "Simulation", y = "Estimate")
-#   ) |>
-#   wrap_plots(ncol = 1) +
-#   plot_layout(guides = "collect")
-
 panel_b <- panel_b_in |>
   ggplot(aes(simulation_reordered, .median, col = correct_label)) +
   facet_grid(
@@ -131,8 +104,6 @@ panel_b <- panel_b_in |>
       .cols = c("value_censoring" = "Censored model", "value_naive" = "Naive model")
     )
   ) +
-  # scale_color_manual(values = c("grey", colour_palette[2])) +
-  # scale_color_manual(values = colour_palette[c(4, 1)]) +
   scale_color_manual(values = c("grey", colour_palette[1])) +
   theme(strip.text = element_markdown()) +
   geom_errorbar(aes(ymin = .lower, ymax = .upper), width = 0, position = position_dodge(width = 1), linewidth = 0.2) +

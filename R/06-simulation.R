@@ -1,4 +1,8 @@
 
+# notes -------------------------------------------------------------------
+
+# this script simulates linear regression with a censored response, as described in the text
+
 # create models directory -------------------------------------------------
 
 if (!file.exists("models")) dir.create("models")

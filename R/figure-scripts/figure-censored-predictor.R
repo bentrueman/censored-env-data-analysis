@@ -12,9 +12,6 @@ source(here("R/04-censored-predictor.R"))
 model_list <- list(
   "Gaussian likelihood" = model_censored_predictor,
   "Student t likelihood" = model_censored_predictor_robust
-  # "Gamma" = model_censored_predictor_gamma,
-  # "Log transformation" = model_censored_predictor_log
-  # "Log t" = model_censored_predictor_log_t
 )
 
 predictions <- model_list |>
@@ -34,8 +31,7 @@ predictions <- model_list |>
   mutate(
     id = str_extract(id, "(?<=\\[)\\d+(?=\\])"),
     value_Cd = rep(biosolids_wide$value_Cd, length(model_list)),
-    censored_Cd = rep(biosolids_wide$censored_Cd, length(model_list)),
-    # across(starts_with("."), ~ if_else(model %in% c("Gamma", "Log transformation", "Log t"), exp(.x), .x))
+    censored_Cd = rep(biosolids_wide$censored_Cd, length(model_list))
   ) |>
   filter(censored_Cd == "none")
 
@@ -47,8 +43,6 @@ max_x <- 5
 plot_regression <- biosolids_wide |>
   # verify there are no censored Co/detected Cd pairs:
   verify(sum(censored_Cd == "none" & censored_Co == "left") == 0) |>
-  # filter(censored_Cd == "left", censored_Co == "left") |>
-  # with(tibble(x = c(0, max(value_Cd), max(value_Cd), 0), y = c(0, 0, max(value_Co), max(value_Co))))
   ggplot(aes(value_Cd, value_Co)) +
   geom_point(
     data = . %>% filter(censored_Cd == "none", censored_Co == "none"),
@@ -84,13 +78,11 @@ plot_regression <- biosolids_wide |>
   geom_ribbon(
     data = predictions,
     aes(y = .epred, ymin = .lower, ymax = .upper, fill = model),
-    alpha = 0.3,
-    # fill = colour_palette[3]
+    alpha = 0.3
   ) +
   geom_line(
     data = predictions,
-    aes(y = .epred, col = model),
-    # col = colour_palette[1]
+    aes(y = .epred, col = model)
   ) +
   labs(
     x = "[Cd] (&mu;g g<sup>-1</sup> dry wt.)",

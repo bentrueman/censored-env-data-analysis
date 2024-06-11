@@ -29,8 +29,6 @@ plot_timeseries <- predictions |>
     across(c(.lower, .epred, .upper), exp)
   ) |>
   ggplot(aes(date_collection, value_Ti, col = site)) +
-  # scale_color_manual(values = colour_palette[c(1, 3, 5)]) +
-  # scale_fill_manual(values = colour_palette[c(1, 3, 5)]) +
   scale_color_manual(values = colour_palette[c(1, 4, 7)]) +
   scale_fill_manual(values = colour_palette[c(1, 4, 7)]) +
   geom_line(

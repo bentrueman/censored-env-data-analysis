@@ -1,4 +1,8 @@
 
+# notes -------------------------------------------------------------------
+
+# this script fits the PPCA model and saves the output
+
 # create models directory -------------------------------------------------
 
 if (!file.exists("models")) dir.create("models")

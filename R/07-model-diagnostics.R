@@ -1,7 +1,8 @@
 
 # notes -------------------------------------------------------------------
 
-# ppca model diagnosed at the time of fitting using cmdstan_diagnose()
+# this script diganoses the Stan models (n.b., the PPCA model was diagnosed
+# at the time of fitting using cmdstan_diagnose()
 
 # setup -------------------------------------------------------------------
 

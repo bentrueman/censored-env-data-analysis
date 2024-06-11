@@ -8,7 +8,6 @@ source(here("R/05-correlation-matrix.R"))
 plot_in <- list(
   "student-t" = model_correlation_matrix_robust,
   "gaussian" = model_correlation_matrix
-  # "naive" = model_correlation_matrix_naive
 ) |>
   map(as_draws_df) |>
   list_rbind(names_to = "model") |>
@@ -22,18 +21,6 @@ plot_in <- list(
   summarize(correlation = median(value)) |>
   ungroup()
 
-# plot_in <- model_correlation_matrix |>
-#   as_draws_df() |>
-#   select(starts_with("rescor__")) |>
-#   pivot_longer(everything()) |>
-#   group_by(
-#     name,
-#     v1 = str_extract(name, "(?<=rescor__value)[A-Z][a-z]?"),
-#     v2 = str_extract(name, "[A-Z][a-z]?$")
-#   ) |>
-#   summarize(correlation = median(value)) |>
-#   ungroup()
-
 # to keep colour scale symmetric, get most extreme correlation:
 extent <- max(abs(plot_in$correlation))
 
@@ -43,7 +30,6 @@ plot_correlation_matrix <- plot_in |>
   ggplot(aes(v2, v1, fill = correlation)) +
   facet_wrap(
     vars(model),
-    # labeller = as_labeller(c("gaussian" = "Gaussian likelihood", "student-t" = "Student-t likelihood", "naive" = "Naive model")),
     labeller = as_labeller(c("gaussian" = "Gaussian likelihood", "student-t" = "Student-t likelihood")),
     ncol = 1
   ) +
@@ -70,7 +56,6 @@ plot_correlation_matrix <- plot_in |>
     aes(v2, v1)
   ) +
   geom_abline() +
-  # geom_text(
   geom_richtext(
     data = tibble(
       x = c(5.95, 6.3),
@@ -79,7 +64,6 @@ plot_correlation_matrix <- plot_in |>
     ),
     aes(x, y, label = label), angle = 42, size = 2,
     inherit.aes = FALSE, label.size = 0,
-    # alpha = 0.5,
     label.padding = unit(0, "lines")
   ) +
   theme(panel.grid = element_blank()) +
@@ -112,19 +96,6 @@ plot_correlation_matrix <- plot_in |>
     inherit.aes = FALSE,
     alpha = 0.3
   ) +
-  # geom_abline() +
-  # geom_text(
-  # geom_richtext(
-  #   data = tibble(
-  #     x = c(5.95, 6.3),
-  #     y = c(6.3, 5.9),
-  #     label = c("Gaussian likelihood &uarr;", "Student-t likelihood &darr;")
-  #   ),
-  #   aes(x, y, label = label), angle = 42, size = 2,
-  #   inherit.aes = FALSE, label.size = 0,
-  #   # alpha = 0,
-  #   label.padding = unit(0, "lines")
-  # ) +
   theme(
     panel.grid = element_blank(),
     panel.border = element_blank(),
@@ -142,8 +113,6 @@ plot_correlation_matrix <- plot_in |>
     col = "Bayesian\ncorrelation",
     fill = NULL
   )
-
-# plot_correlation_matrix$layers <- plot_correlation_matrix$layers[c(3, 1, 2,4)]
 
 # ecdf --------------------------------------------------------------------
 
@@ -174,4 +143,3 @@ ggsave(
   width = 3.33, height = 6.5,
   dev = "png", dpi = 600
 )
-

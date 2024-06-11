@@ -1,4 +1,8 @@
 
+# notes -------------------------------------------------------------------
+
+# this script estimates the pairwise correlations among the metals concentrations
+
 # create models directory -------------------------------------------------
 
 if (!file.exists("models")) dir.create("models")
