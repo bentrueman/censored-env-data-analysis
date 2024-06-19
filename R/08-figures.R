@@ -11,6 +11,7 @@ library("assertr")
 library("PNWColors")
 library("purrr")
 library("stringr")
+library("ggrepel")
 library("devtools", include.only = "session_info")
 
 theme_set(

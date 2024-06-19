@@ -35,32 +35,33 @@ plot_ppca <- z_estimated |>
   ggplot(aes(PC1, PC2, col = site)) +
   scale_color_manual(values = colour_palette[c(1, 4, 7)]) +
   # annotate extreme points instead of plotting them:
-  geom_label(
+  ggrepel::geom_label_repel(
     data = \(x) x |>
       mutate(labels = paste0("(", round(PC1, 1), ", ", round(PC2, 1), ")")) |>
-      filter(!(PC1 < 2 & PC1 > -2 & PC2 > -2 & PC2 < 2)) |>
+      filter(!(PC1 < 1.5 & PC1 > -0.3 & PC2 > -0.3 & PC2 < 1.5)) |>
       mutate(
         across(c(PC1, PC2), ~ case_when(
-          .x >= 2 ~ Inf,
-          .x <= -2 ~ -Inf,
+          .x >= 1.5 ~ 1.5,
+          .x <= -0.3 ~ -0.3,
           TRUE ~ .x
         ))
       ),
     aes(label = labels),
-    hjust = "inward", vjust = "inward",
-    label.size = 0, alpha = 0.7, size = 2,
-    show.legend = FALSE
+    seed = 101010,
+    # hjust = "inward", vjust = "inward",
+    label.size = 0, alpha = 0.7, size = 2, label.padding = 0.3,
+    show.legend = FALSE, min.segment.length = 1e2
   ) +
   geom_point(
     data = . %>%
-      filter(PC1 < 2 & PC1 > -2 & PC2 > -2 & PC2 < 2)
+      filter(PC1 < 1.5 & PC1 > -0.3 & PC2 > -0.3 & PC2 < 1.5)
   ) +
   labs(
     x = "First latent variable (<i>z<sub>k=1</sub></i>)",
     y = "Second latent variable (<i>z<sub>k=2</sub></i>)",
     col = NULL
   ) +
-  lims(x = c(-2, 2), y = c(-2, 2))
+  lims(x = c(-0.3, 1.5), y = c(-0.3, 1.5))
 
 plot_loadings <- w_orthonormalized |>
   pivot_longer(-element) |>

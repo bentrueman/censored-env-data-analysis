@@ -22,7 +22,7 @@ standata_cens <- build_standatalist(pca_in, 2, biosolids_censoring)
 
 stanseed <- 215678
 
-ppca_scode <- modify_stan_template(ncol(pca_in))
+ppca_scode <- modify_stan_template(standata_cens)
 
 # load ppca model from CSVs -----------------------------------------------
 
