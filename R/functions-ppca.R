@@ -86,9 +86,9 @@ get_censored_column_numbers <- function(standatalist) {
   # retain names of list elements containing censoring limits:
   names_u <- names_standata[grepl("U_y", names_standata)]
   # extract column numbers from the names extracted above:
-  columns_ncens <- regmatches(names_ncens, m = regexpr("\\d", names_ncens))
-  columns_jcens <- regmatches(names_jcens, m = regexpr("\\d", names_jcens))
-  columns_u <- regmatches(names_u, m = regexpr("\\d", names_u))
+  columns_ncens <- regmatches(names_ncens, m = regexpr("\\d+", names_ncens))
+  columns_jcens <- regmatches(names_jcens, m = regexpr("\\d+", names_jcens))
+  columns_u <- regmatches(names_u, m = regexpr("\\d+", names_u))
   # all three sets of column numbers should be the same:
   stopifnot(
     "stan data list must include corresponding variables for position,
