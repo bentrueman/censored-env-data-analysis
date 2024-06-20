@@ -16,7 +16,7 @@ test_that("modify_stan_template() adds the correct number of rows", {
   x <- data.frame(x = rnorm(10), y = rnorm(10))
   cens <- as.data.frame(apply(x, 2, \(x) x < 0))
   standata <- build_standatalist(x, 1, cens)
-  expect_equal(length(modify_stan_template(standata)), length(modify_stan_template(list())) + 14)
+  expect_equal(length(modify_stan_template(standata)), length(modify_stan_template(list())) + 16)
   # non-empty input but no censoring:
   x <- data.frame(x = rlnorm(10), y = rlnorm(10))
   cens <- as.data.frame(apply(x, 2, \(x) x < 0))
