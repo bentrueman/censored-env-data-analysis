@@ -6,19 +6,25 @@ modify_stan_template <- function(standatalist) {
   index_cens  <- get_censored_column_numbers(standatalist)
   # get column numbers of variables with missings:
   index_mi  <- get_missings_column_numbers(standatalist)
+  # only set zero lower bounds for variables that are everywhere positive:
+  zero_lower_bound <- if (length(standatalist) > 0)
+    apply(standatalist$y, 2, \(x) !any(x <= 0, na.rm = TRUE)) else
+      NULL
+  # subset to only include censored variables:
+  zero_lower_bound <- zero_lower_bound[index_cens]
   # starter code:
   code_template <- readLines(here("R/stan/ppca.stan"))
   # build additional code for censored data:
-  declare_Ncens <- build_Ncens(index_cens )
-  declare_Jcens <- build_Jcens(index_cens )
-  declare_U <- build_U(index_cens )
-  declare_Ycens <- build_Ycens(index_cens )
-  declare_yl_cens <- build_yl_cens(index_cens )
+  declare_Ncens <- build_Ncens(index_cens)
+  declare_Jcens <- build_Jcens(index_cens)
+  declare_U <- build_U(index_cens)
+  declare_Ycens <- build_Ycens(index_cens, zero_lower_bound)
+  declare_yl_cens <- build_yl_cens(index_cens)
   # build additional code for missing data:
-  declare_Nmi <- build_Nmi(index_mi )
-  declare_Jmi <- build_Jmi(index_mi )
-  declare_Ymi <- build_Ymi(index_mi )
-  declare_yl_mi <- build_yl_mi(index_mi )
+  declare_Nmi <- build_Nmi(index_mi)
+  declare_Jmi <- build_Jmi(index_mi)
+  declare_Ymi <- build_Ymi(index_mi)
+  declare_yl_mi <- build_yl_mi(index_mi)
   # add to template:
   code <- c(
     code_template[3:7], # data block
@@ -149,10 +155,14 @@ build_U <- function(index) {
   if (length(output) == 0) character(0L) else output
 }
 
-build_Ycens <- function(index) {
-  output <- sapply(
-    index,
-    \(x) paste0("  array[Ncens_y", x, "] real<lower=0, upper=U_y", x, "> Ycens_y", x, "; // estimated censored, y", x)
+build_Ycens <- function(index, zero_lower_bound) {
+  output <- mapply(
+    \(x, y) {
+      # only write lower=0 if zero_lower_bound is TRUE:
+      if (y) paste0("  array[Ncens_y", x, "] real<lower=0, upper=U_y", x, "> Ycens_y", x, "; // estimated censored, y", x) else
+        paste0("  array[Ncens_y", x, "] real<upper=U_y", x, "> Ycens_y", x, "; // estimated censored, y", x)
+    },
+    index, zero_lower_bound
   )
   if (length(output) == 0) character(0L) else output
 }
