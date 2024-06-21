@@ -43,6 +43,18 @@ these_limits <- biosolids_wide |>
   mutate(new = lapply(data, \(x) x$value)) |>
   with(setNames(new, element))
 
+# verify that censoring limits, censoring indicators, and variable names are in the same order:
+
+stopifnot(
+  all(duplicated(
+    list(
+      names(these_limits), # censoring limits
+      str_remove(these_variables, "value_"), # variable names
+      str_remove(these_indicators, "censored_") # censoring indicators
+    )
+  )[-1])
+)
+
 # priors:
 
 priors <- c(
