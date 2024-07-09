@@ -5,15 +5,20 @@
 # reasonable estimates of the true correlation coefficients even under heavy missingness
 # and left-censoring
 
+# create models directory -------------------------------------------------
+
+if (!file.exists("models")) dir.create("models")
+if (!file.exists("models/simulation")) dir.create("models/simulation")
+
 # setup -------------------------------------------------------------------
 
 library("MASS") # random generation for multivariate normal
 library("tidyverse") # data wrangling
 library("withr") # set random seed
 library("trialr") # generate random correlation matrices
-library("brms") # generate Stan code
-library("bgamcar1") # customize Stan code
-library("cmdstanr") # run Stan code
+library("brms") # generate Stan code template
+library("bgamcar1") # customize Stan code and fit models
+library("cmdstanr") # postprocess model
 library("posterior") # postprocess model
 library("ggplot2") # visualize
 library("patchwork") # visualize
@@ -58,26 +63,30 @@ these_indicators <- paste0("cens_x", seq(n_variables))
 
 # simulate data -----------------------------------------------------------
 
-with_seed(124256764, {
+this_seed <- 124256764
 
-  simulation_inputs <- tibble(
-    variable = these_variables,
-    mu = rnorm(n_variables, mean_mu, sd_mu),
-    sigma = rlnorm(n_variables, meanlog_sigma, sdlog_sigma),
-    censoring_thresholds = mu - proportion_censored * sigma
-  )
+with_seed(this_seed, {
+
+  simulation_inputs <- replicate(n_simulations, {
+    tibble(
+      variable = these_variables,
+      mu = rnorm(n_variables, mean_mu, sd_mu),
+      sigma = rlnorm(n_variables, meanlog_sigma, sdlog_sigma),
+      censoring_thresholds = mu - proportion_censored * sigma
+    )
+  }, simplify = FALSE)
 
   correlation_matrices <- replicate(n_simulations, {
     trialr::rlkjcorr(1, n_variables)
   }, simplify = FALSE)
 
-  data <- map(correlation_matrices, \(x) {
+  data <- map2(correlation_matrices, simulation_inputs, \(x, y) {
 
-    sigma <- diag(simulation_inputs$sigma)
+    sigma <- diag(y$sigma)
 
     covariance_matrix <- sigma %*% x %*% sigma
 
-    data <- mvrnorm(n = n_observations, mu = simulation_inputs$mu, Sigma = covariance_matrix)
+    data <- mvrnorm(n = n_observations, mu = y$mu, Sigma = covariance_matrix)
 
     # add in missings and censored:
 
@@ -86,12 +95,12 @@ with_seed(124256764, {
 
 
     censoring_indicators <- data_missing |>
-      sweep(2, simulation_inputs$censoring_thresholds, FUN = "<") |>
+      sweep(2, y$censoring_thresholds, FUN = "<") |>
       apply(2, \(u) if_else(u, "left", "none")) |>
       apply(2, \(u) replace_na(u, "none"))
 
     data_censored <- data_missing |>
-      sweep(2, simulation_inputs$censoring_thresholds, FUN = pmax)
+      sweep(2, y$censoring_thresholds, FUN = pmax)
 
     # convert to tibble:
 
@@ -115,72 +124,41 @@ data |>
 
 these_formulas <- lapply(these_variables, \(x) bf(paste0(x, " | mi() ~ 1")))
 
-these_priors <- c(
-  set_prior("student_t(3, 0, 2.5)", class = "Intercept", resp = these_variables),
-  set_prior("student_t(3, 0, 2.5)", class = "sigma", resp = these_variables, lb = 0),
-  set_prior("lkj(1)", class = "rescor")
-)
-
-# generate model code -----------------------------------------------------
-
 multivariate_formula <- mvbrmsformula(flist = these_formulas) + set_rescor(TRUE)
 
-generated_stancode <- make_stancode(
-  multivariate_formula,
-  prior = these_priors,
-  data = data[[1]],
-  family = "gaussian"
-) |>
-  modify_stancode(
-    modify = "xcens",
-    var_xcens = these_variables,
-    lcl = simulation_inputs$censoring_thresholds
-  )
-
-# generate standata -------------------------------------------------------
-
-generated_standata <- map(data, ~ make_standata(
-  multivariate_formula,
-  data = .x,
-  prior = these_priors,
-  family = "gaussian"
-)) |>
-  map2(data, ~ modify_standata(
-    .x,
-    .y,
-    lcl = simulation_inputs$censoring_thresholds,
-    var_xcens = these_variables,
-    cens_ind = these_indicators
-  ))
-
-# fit model ---------------------------------------------------------------
+# fit models --------------------------------------------------------------
 
 # load from CSVs:
 
-filenames <- map_chr(seq(n_simulations), ~ paste0("models/", filename_prefix, .x)) |>
-  map(~ paste0(.x, "-", 1:4, ".csv"))
+get_models <- function(...) {
 
-censored_model_fitted <- try(map(filenames, as_cmdstan_fit))
+  filenames <- map_chr(seq(n_simulations), ~ paste0("models/simulation/", filename_prefix, .x)) |>
+    map(~ paste0(.x, "-", 1:4, ".csv"))
 
-# sample:
+  try(map(filenames, as_cmdstan_fit))
+
+}
+
+censored_model_fitted <- get_models()
+
+# if they don't exist, sample:
 
 if (class(censored_model_fitted) == "try-error") {
 
-  censored_model_compiled <- cmdstan_model(stan_file = write_stan_file(generated_stancode))
+  map(seq_along(data), ~ fit_stan_model(
+    file = paste0("models/simulation/", filename_prefix, .x),
+    seed = this_seed,
+    bform = multivariate_formula,
+    bdata = data[[.x]],
+    car1 = FALSE,
+    var_xcens = these_variables,
+    cens_ind = these_indicators,
+    lcl = simulation_inputs[[.x]]$censoring_thresholds,
+    family = "gaussian",
+    backend = "cmdstanr"
+  ))
 
-  censored_model_fitted <- map(
-    generated_standata, ~ censored_model_compiled$sample(data = .x)
-  )
-
-  map2(
-    censored_model_fitted, seq_along(censored_model_fitted),
-    ~ .x$save_output_files(
-      dir = "models",
-      basename = paste0(filename_prefix, .y),
-      random = FALSE,
-      timestamp = FALSE
-    )
-  )
+  censored_model_fitted <- get_models()
 
 }
 
@@ -211,6 +189,9 @@ correlation_matrices_tbl <- correlation_matrices |>
   map(\(x) mutate(these_variable_pairs, rho = x)) |>
   list_rbind(names_to = "simulation")
 
+simulation_inputs_tbl <- simulation_inputs |>
+  list_rbind(names_to = "simulation")
+
 model_draws <- censored_model_fitted |>
   map(~ .x$draws(format = "draws_df")) |>
   map(as_tibble) |>
@@ -228,7 +209,7 @@ estimates <- list(mu_estimated = "Intercept$", sigma_estimated = "^sigma") |>
         estimate = quantile(value, .5)
       ) |>
       ungroup() |>
-      left_join(simulation_inputs, by = "variable") |>
+      left_join(simulation_inputs_tbl, by = c("simulation", "variable")) |>
       left_join(diagnostics, by = "simulation")
   )
 
@@ -294,6 +275,7 @@ wrap_plots(plot_mu, plot_sigma, plot_correlations, ncol = 3) +
   plot_layout(guides = "collect") &
   theme(legend.position = "bottom", legend.direction = "vertical") &
   labs(
+    x = "True value", y = "Estimate",
     shape = "Did the model converge?",
     col = "Does the CI contain the true value?"
   )
