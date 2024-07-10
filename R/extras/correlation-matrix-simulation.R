@@ -179,10 +179,10 @@ diagnostics_2 <- map(censored_model_fitted, ~ .x$summary()) |>
 
 diagnostics <- tibble(simulation = seq(n_simulations), converged = diagnostics_1 & diagnostics_2)
 
-# compare estimates with true values --------------------------------------
+# get true parameter values -----------------------------------------------
 
 these_variable_pairs <- data.frame(t(combn(these_variables, 2))) |>
-  rename(variable_1 = X1, variable_2 = X2)
+  unite(col = variable, X1, X2)
 
 correlation_matrices_tbl <- correlation_matrices |>
   map(\(x) x[lower.tri(x)]) |>
@@ -192,86 +192,73 @@ correlation_matrices_tbl <- correlation_matrices |>
 simulation_inputs_tbl <- simulation_inputs |>
   list_rbind(names_to = "simulation")
 
+# compare estimates with true values --------------------------------------
+
 model_draws <- censored_model_fitted |>
   map(~ .x$draws(format = "draws_df")) |>
   map(as_tibble) |>
-  list_rbind(names_to = "simulation")
+  list_rbind(names_to = "simulation") |>
+  # rename correlation parameters:
+  rename_with(
+    .cols = matches("^Rescor\\[\\d\\,\\d\\]"),
+    .fn = ~ str_replace(.x, "(\\d+),(\\d+)", "x\\1,x\\2")
+  )
 
-estimates <- list(mu_estimated = "Intercept$", sigma_estimated = "^sigma") |>
-  map(
+estimates <- list(
+  mu_estimated = "Intercept$", sigma_estimated = "^sigma", rho_estimated = "^Rescor\\[x\\d,x\\d\\]"
+) |>
+  map2(
+    list(simulation_inputs_tbl, simulation_inputs_tbl, correlation_matrices_tbl),
     ~ model_draws |>
       select(c(simulation, matches(.x))) |>
       pivot_longer(-simulation, names_to = "param") |>
-      group_by(variable = str_extract(param, paste(these_variables, collapse = "|")), simulation) |>
+      mutate(
+        variable = str_extract_all(param, paste(these_variables, collapse = "|")),
+        variable = map(variable, ~ paste(.x, collapse = "_")),
+        variable = unlist(variable)
+      ) |>
+      group_by(variable, simulation) |>
       summarize(
         lower = quantile(value, .025),
         upper = quantile(value, .975),
         estimate = quantile(value, .5)
       ) |>
       ungroup() |>
-      left_join(simulation_inputs_tbl, by = c("simulation", "variable")) |>
+      right_join(.y, by = c("simulation", "variable")) |>
       left_join(diagnostics, by = "simulation")
   )
 
-rho_estimated <- model_draws |>
-  select(c(simulation, matches("^Rescor\\[\\d\\,\\d\\]"))) |>
-  pivot_longer(-simulation, names_to = "param") |>
-  group_by(
-    param,
-    variable_1 = paste0("x", str_extract(param, "(?<=\\[)\\d")),
-    variable_2 = paste0("x", str_extract(param, "(?<=\\,)\\d")),
-    simulation
-  ) |>
-  summarize(
-    lower = quantile(value, .025),
-    upper = quantile(value, .975),
-    estimate = quantile(value, .5)
-  ) |>
-  filter(variable_1 < variable_2) |>
-  arrange(simulation) |>
-  left_join(correlation_matrices_tbl, by = c("variable_1", "variable_2", "simulation")) |>
-  left_join(diagnostics, by = "simulation")
-
 # plot estimates ----------------------------------------------------------
 
-plot_mu <- estimates$mu_estimated |>
-  mutate(
-    ci_contains_true_value = upper - mu > 0 & lower - mu < 0,
-    across(c(converged, ci_contains_true_value), ~ if_else(.x, "Yes", "No"))
-  ) |>
-  ggplot(aes(mu, estimate, col = ci_contains_true_value, shape = converged)) +
-  geom_abline() +
-  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0, linewidth = 0.1) +
-  geom_point() +
-  labs(title = "Means")
+plot_estimates <- \(x, param) {
+  x |>
+    mutate(
+      ci_contains_true_value = upper - .data[[param]] > 0 & lower - .data[[param]] < 0,
+      across(c(converged, ci_contains_true_value), ~ if_else(.x, "Yes", "No"))
+    ) |>
+    ggplot(aes(.data[[param]], estimate, col = ci_contains_true_value, shape = converged)) +
+    geom_abline() +
+    geom_errorbar(aes(ymin = lower, ymax = upper), width = 0, linewidth = 0.1) +
+    geom_point(alpha = 0.5)
+}
 
-plot_sigma <- estimates$sigma_estimated |>
-  mutate(
-    ci_contains_true_value = upper - sigma > 0 & lower - sigma < 0,
-    across(c(converged, ci_contains_true_value), ~ if_else(.x, "Yes", "No"))
-  ) |>
-  ggplot(aes(sigma, estimate, col = ci_contains_true_value, shape = converged)) +
-  scale_x_log10() +
-  scale_y_log10() +
-  geom_abline() +
-  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0, linewidth = 0.1) +
-  geom_point() +
-  labs(title = "Standard\ndeviations")
-
-plot_correlations <- rho_estimated |>
-  mutate(
-    ci_contains_true_value = upper - rho > 0 & lower - rho < 0,
-    across(c(converged, ci_contains_true_value), ~ if_else(.x, "Yes", "No"))
-  ) |>
-  ggplot(aes(rho, estimate, col = ci_contains_true_value, shape = converged)) +
-  geom_abline() +
-  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0, linewidth = 0.1) +
-  geom_point() +
-  labs(title = "Correlation\ncoefficients")
+these_plots <- map2(
+  estimates,
+  list("mu", "sigma", "rho"),
+  plot_estimates
+)
 
 # combine -----------------------------------------------------------------
 
-wrap_plots(plot_mu, plot_sigma, plot_correlations, ncol = 3) +
+wrap_plots(
+  these_plots$mu_estimated + labs(title = "Means"),
+  these_plots$sigma_estimated +
+    scale_x_log10() +
+    scale_y_log10() +
+    labs(title = "Standard\ndeviations"),
+  these_plots$rho_estimated + labs(title = "Correlation\ncoefficients"),
+  ncol = 3
+) +
   plot_layout(guides = "collect") &
   theme(legend.position = "bottom", legend.direction = "vertical") &
   labs(
