@@ -98,7 +98,7 @@ simulation <- tibble(
       model_censoring,
       newdata = .x,
       cores = parallel::detectCores(),
-      file = paste0("models/simulation/simulation-censoring", .y)
+      file = paste0("models/simulation/simulation-censoring-", .y)
     )),
     params_censoring = map(model_censoring, ~ as_draws_df(.x)),
     params_censoring = map(params_censoring, ~ suppressWarnings(select(.x, b_Intercept, b_x, sigma))),
@@ -109,7 +109,7 @@ simulation <- tibble(
       model_naive,
       newdata = .x,
       cores = parallel::detectCores(),
-      file = paste0("models/simulation/simulation-naive", .y)
+      file = paste0("models/simulation/simulation-naive-", .y)
     )),
     params_naive = map(model_naive, ~ as_draws_df(.x)),
     params_naive = map(params_naive, ~ suppressWarnings(select(.x, b_Intercept, b_x, sigma))),

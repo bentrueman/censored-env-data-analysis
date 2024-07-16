@@ -29,7 +29,7 @@ options(mc.cores = parallel::detectCores())
 
 # simulation inputs -------------------------------------------------------
 
-filename_prefix <- "correlation-matrix-simulation-" # for saving cmdstan fits
+filename_prefix <- "simulation-correlation-matrix-" # for saving cmdstan fits
 
 n_variables <- 5
 
