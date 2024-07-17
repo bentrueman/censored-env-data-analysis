@@ -25,7 +25,7 @@ no_lower_bound <- apply(pca_in, 2, \(x) min(x, na.rm = TRUE) < 0)
 
 no_lower_bound <- names(no_lower_bound)[no_lower_bound]
 
-# remove variables with > 25% censored or missing values ------------------
+# remove variables with > 30% censored or missing values ------------------
 
 these_columns <- apply(pca_censoring, 2, mean) <= 0.3 &
   apply(pca_in, 2, \(x) mean(is.na(x))) <= 0.3
