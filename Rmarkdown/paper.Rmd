@@ -1,6 +1,6 @@
 ---
 title: "A comprehensive approach to analyzing environmental data with non-detects"
-author: "Benjamin F. Trueman\\* and Graham A. Gagnon"
+author: "Benjamin F. Trueman,\\* Madison Gouthro, Amina K. Stoddart, and Graham A. Gagnon"
 date: "Centre for Water Resources Studies, Department of Civil & Resource Engineering, Dalhousie University, 1360 Barrington St., Halifax, Nova Scotia, Canada B3H 4R2  \n&nbsp;   \n  *Corresponding author  \nE-mail: benjamin.trueman@dal.ca    \nTel: 902.494.6070  \nFax: 902.494.3105"
 output:
   word_document:
@@ -22,7 +22,7 @@ draws_censored_response <- read_csv(here("data-clean/censored-response-draws-car
 
 # Abstract 
 
-Non-detects---measurements below a detection limit---are ubiquitous in environmental science and engineering. They are frequently replaced with a constant, but this biases estimates of means, regression slopes, and correlation coefficients. Omitting non-detects is even worse and has led to serious errors. Simple alternatives are available: rank-based statistics, maximum likelihood estimation, and re-purposed survival analysis routines. But many environmental datasets do not fit neatly into the confines of these methods---it is often necessary to account for hierarchy (e.g., measurements nested within lakes), sampling strategy (e.g., measurements collected as time series), heterogeneity (e.g., site-dependent variance), and measurement error. Bayesian methods offer the flexibility to do this; incorporating non-detects is also easy and does not bias model parameter estimates as substitution does. Here we discuss Bayesian implementations of common bivariate and multivariate statistical methods with relevance to environmental science. We use a dataset comprising time series of Ag, As, Cd, Ce, Co, Sb, Ti, U, and V concentrations in municipal biosolids that includes many non-detects. The models can be reproduced and extended to new problems using the data and code that accompany this paper.
+Non-detects---measurements reported as below a detection limit---are ubiquitous in environmental science and engineering. They are frequently replaced with a constant, but this biases estimates of means, regression slopes, and correlation coefficients. Omitting non-detects is even worse and has led to serious errors. Simple alternatives are available: rank-based statistics, maximum likelihood estimation, and re-purposed survival analysis routines. But many environmental datasets do not fit neatly into the confines of these methods---it is often necessary to account for hierarchy (e.g., measurements nested within lakes), sampling strategy (e.g., measurements collected as time series), heterogeneity (e.g., site-dependent variance), and measurement error. Bayesian methods offer the flexibility to do this; incorporating non-detects is also easy and does not bias model parameter estimates as substitution does. Here we discuss Bayesian implementations of common bivariate and multivariate statistical methods with relevance to environmental science. We use a dataset comprising time series of Ag, As, Cd, Ce, Co, Sb, Ti, U, and V concentrations in municipal biosolids that includes many non-detects. The models can be reproduced and extended to new problems using the data and code that accompany this paper.
 
 # Introduction
 
@@ -36,7 +36,7 @@ Bayesian methods excel in this context---since the sampling techniques they rely
 
 ## Data collection
 
-We fit models to a dataset comprising concentrations of Ag, As, Cd, Ce, Co, Sb, Ti, U, and V in municipal biosolids. Biosolids samples were collected from the clarifiers of three wastewater treatment facilities in 125 mL polypropylene bottles. Samples were autoclaved, desiccated by baking at 105&deg;C for approximately 60 hours, digested according to EPA Method 3050B [@us1996method], diluted serially, and quantified according to Standard Method 3125 [@sm_3125]. A summary of the data is available in Table 1.
+We fit models to a dataset comprising concentrations of Ag, As, Cd, Ce, Co, Sb, Ti, U, and V in municipal biosolids. Biosolids samples were collected from the clarifiers of three wastewater treatment facilities in 125 mL polypropylene bottles. Samples were autoclaved, desiccated by baking at 105&deg;C for approximately 60 hours, digested according to EPA Method 3050B [@us1996method], diluted serially, and quantified by inductively coupled plasma mass spectrometry according to Standard Method 3125 [@sm_3125]. A summary of the data is available in Table 1.
 
 ```{r table-1}
 biosolids |> 
@@ -67,7 +67,7 @@ The data, $x$, are used to update the prior via Bayes' theorem. It relates the p
 In practice, model fitting follows these basic steps:
 
 1. Assign a probability distribution to the data. 
-2. Choose a model for each of its parameters.
+2. Choose a model for each of the distributional parameters.
 3. Choose a distribution of prior probability for each parameter.
 4. Iterate the following steps to obtain a sample from the posterior:
     (a) Propose values for all parameters. 
@@ -105,7 +105,7 @@ $$
 
 In equation $(1)$, $censored_i$ is a binary variable ($0 = observed$, $1 = left\text{-}censored$), and $N\text{-}CDF$ is the normal cumulative distribution function (i.e., $P(X\leq x)$, the probability that a random variable $X$ is less than or equal to some value $x$) [@stan2024; @mcelreath_statistical_2016]. The parameters $\beta_0$ and $\beta_1$ define the linear model for $\mu_i$, and $T$ denotes the t distribution with degrees of freedom---which controls probability density in the tails---parameterized by $\nu$. 
 
-```{r figure-1, fig.cap="**Figure 1. (a)** One iteration of the linear regression simulation. The model that accounts for left-censoring via the cumulative distribution function recovered the true model parameters well, whereas the naive model that used substitution at one-half the detection limit was biased. **(b)** The same pattern was evident across the entire simulation: the censored regression model recovered the true parameters well and the naive model was biased."}
+```{r figure-1, fig.cap="**Figure 1. (a)** One iteration of the linear regression simulation. The model that accounts for left-censoring via the cumulative distribution function recovered the true model parameters well, whereas the naive model that used substitution at one-half the detection limit was biased. Points represent observations, and vertical dashed grey lines represent left-censored values. **(b)** The same pattern was evident across the entire simulation: the censored regression model recovered the true parameters well and the naive model was biased."}
 knitr::include_graphics(here("figures/figure-simulation.png"))
 ```
 
@@ -258,6 +258,6 @@ Replacing non-detects with a constant---often one-half the detection limit---bia
 
 # Acknowledgements
 
-This work was supported by NSERC through an Alliance Grant (ALLRP 568507--21). We acknowledge Halifax Water staff for facilitating sample collection at the treatment facilities and Heather Daurie, Alyssa Chiasson, Evelyne Dor&eacute;, Jorginea Bonang, Genevieve Erjavec, Sebastian Munoz, Bofu Li, and Madison Gouthro for laboratory assistance.
+This work was supported by NSERC through an Alliance Grant (ALLRP 568507--21). We acknowledge Halifax Water staff for facilitating sample collection at the treatment facilities and Heather Daurie, Alyssa Chiasson, Evelyne Dor&eacute;, Jorginea Bonang, Genevieve Erjavec, Sebastian Munoz, and Bofu Li for laboratory assistance.
 
 # References 
