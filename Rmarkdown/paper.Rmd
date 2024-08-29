@@ -24,6 +24,12 @@ draws_censored_response <- read_csv(here("data-clean/censored-response-draws-car
 
 Non-detects---measurements reported as below a detection limit---are ubiquitous in environmental science and engineering. They are frequently replaced with a constant, but this biases estimates of means, regression slopes, and correlation coefficients. Omitting non-detects is even worse and has led to serious errors. Simple alternatives are available: rank-based statistics, maximum likelihood estimation, and re-purposed survival analysis routines. But many environmental datasets do not fit neatly into the confines of these methods---it is often necessary to account for hierarchy (e.g., measurements nested within lakes), sampling strategy (e.g., measurements collected as time series), heterogeneity (e.g., site-dependent variance), and measurement error. Bayesian methods offer the flexibility to do this; incorporating non-detects is also easy and does not bias model parameter estimates as substitution does. Here we discuss Bayesian implementations of common bivariate and multivariate statistical methods with relevance to environmental science. We use a dataset comprising time series of Ag, As, Cd, Ce, Co, Sb, Ti, U, and V concentrations in municipal biosolids that includes many non-detects. The models can be reproduced and extended to new problems using the data and code that accompany this paper.
 
+# Graphical abstract
+
+```{r figure-toc-art}
+knitr::include_graphics(here("figures/figure-toc-art.png"))
+```
+
 # Introduction
 
 Non-detects---measurements recorded as less than a detection or reporting limit---are ubiquitous in environmental science and engineering. In the statistical literature, they are known as left-censored observations. A popular method of representing them in statistical routines is to replace them with one-half, or some other fraction, of the detection limit. But while common, this strategy can severely bias estimates based on the data. Worse still is omission---leaving out non-detects has led to serious and well-documented errors [@helsel_statistics_2012].
