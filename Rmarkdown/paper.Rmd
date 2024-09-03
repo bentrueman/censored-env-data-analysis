@@ -119,7 +119,7 @@ The censored regression model recovered the true parameter values much more accu
 
 ## Accounting for non-detects in a more complex model
 
-The same strategy can be incorporated into more complex models: here, we use a dataset of metals concentrations in municipal biosolids to demonstrate fitting a smoothing spline, a popular method for characterizing environmental time series [@simpson_modelling_2018; @murphy_generalized_2019; @beck_multiscale_2022]. It was fitted using *bgamcar1* [@bgamcar1], an extension of *brms* that accommodates continuous-time autoregression---accounting for the dependence of one observation on the previous one in unequally spaced time series [@trueman_comparing_2022; @simpson_modelling_2018]. Titanium concentrations at three wastewater treatment facilities (Sites 1--3) were modeled as follows:
+The same strategy can be incorporated into more complex models: here, we use a dataset of metals concentrations in municipal biosolids to demonstrate fitting a smoothing spline, a popular method for characterizing environmental time series and other problems [@simpson_modelling_2018; @murphy_generalized_2019; @beck_multiscale_2022; @chen_prediction_2020]. It was fitted using *bgamcar1* [@bgamcar1], an extension of *brms* that accommodates continuous-time autoregression---accounting for the dependence of one observation on the previous one in unequally spaced time series [@trueman_comparing_2022; @simpson_modelling_2018]. Titanium concentrations at three wastewater treatment facilities (Sites 1--3) were modeled as follows:
 
 $$
 (2)~~
