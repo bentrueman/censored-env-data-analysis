@@ -264,6 +264,6 @@ Replacing non-detects with a constant---often one-half the detection limit---bia
 
 # Acknowledgements
 
-This work was supported by NSERC through an Alliance Grant (ALLRP 568507--21). We acknowledge Halifax Water staff for facilitating sample collection at the treatment facilities and Heather Daurie, Alyssa Chiasson, Evelyne Dor&eacute;, Jorginea Bonang, Genevieve Erjavec, Sebastian Munoz, and Bofu Li for laboratory assistance.
+This work was supported by NSERC through an Alliance Grant (ALLRP 568507--21). We acknowledge utility staff for facilitating sample collection at the treatment facilities and Heather Daurie, Alyssa Chiasson, Evelyne Dor&eacute;, Jorginea Bonang, Genevieve Erjavec, Sebastian Munoz, and Bofu Li for laboratory assistance.
 
 # References 
